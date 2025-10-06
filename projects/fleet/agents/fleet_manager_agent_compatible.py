@@ -85,6 +85,7 @@ class Vehicle(BaseModel):
     license_plate: str = Field(..., description="License plate number")
     color: Optional[str] = None
     engine_type: Optional[str] = None
+    current_mileage: int = Field(default=0, description="Current vehicle mileage")
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -105,24 +106,43 @@ class FuelEvent(BaseModel):
     """Fuel event record model with multi-modal support."""
     fuel_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     vehicle_id: str = Field(..., description="Related vehicle ID")
-    gallons: Decimal = Field(..., gt=0, description="Gallons of fuel")
+    gallons: Decimal = Field(..., gt=0, description="Gallons of fuel/consumable")
     odometer_reading: int = Field(..., ge=0, description="Current odometer reading")
-    total_cost: Optional[Decimal] = Field(None, description="Total cost of fuel")
+    total_cost: Optional[Decimal] = Field(None, description="Total cost")
     price_per_gallon: Optional[Decimal] = Field(None, description="Price per gallon")
-    fuel_type: str = Field(default="Gasoline", description="Type of fuel")
+    fuel_type: str = Field(default="Gasoline", description="Type of fuel/consumable (Gasoline, Diesel, DEF)")
+    is_consumable: bool = Field(default=False, description="True for maintenance consumables (DEF), False for fuel")
+    consumption_rate: Optional[Decimal] = Field(None, description="Reserved for future non-MPG consumables")
     date_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     latitude: Optional[float] = Field(None, ge=-90, le=90, description="GPS latitude")
     longitude: Optional[float] = Field(None, ge=-180, le=180, description="GPS longitude")
-    station_name: Optional[str] = Field(None, description="Gas station name")
+    station_name: Optional[str] = Field(None, description="Station/supplier name")
     receipt_image_path: Optional[str] = Field(None, description="Path to receipt image")
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     def model_post_init(self, __context):
-        """Calculate missing cost fields after model initialization."""
+        """Calculate missing cost fields and handle consumable types after model initialization."""
+        # Calculate cost fields
         if self.total_cost is None and self.price_per_gallon is not None and self.gallons:
             self.total_cost = self.price_per_gallon * self.gallons
         elif self.price_per_gallon is None and self.total_cost is not None and self.gallons:
             self.price_per_gallon = self.total_cost / self.gallons
+
+        # Determine if this is a non-fuel consumable (like DEF)
+        fuel_type_upper = self.fuel_type.upper()
+
+        if fuel_type_upper == "DEF":
+            # DEF is a maintenance consumable tracked in MPG (like fuel) but categorized as maintenance
+            self.is_consumable = True
+            self.consumption_rate = None  # DEF efficiency calculated via MPG like fuel
+        elif fuel_type_upper in ["GASOLINE", "DIESEL", "E85", "BIODIESEL"]:
+            # These are actual fuels - tracked via MPG, categorized as fuel costs
+            self.is_consumable = False
+            self.consumption_rate = None  # Fuel efficiency calculated via MPG
+        else:
+            # Unknown type - default to fuel
+            self.is_consumable = False
+            self.consumption_rate = None
 
 
 class MaintenanceEvent(BaseModel):
@@ -192,6 +212,7 @@ class FleetDatabase:
                     license_plate TEXT NOT NULL,
                     color TEXT,
                     engine_type TEXT,
+                    current_mileage INTEGER DEFAULT 0,
                     created_at TEXT NOT NULL
                 )
             """)
@@ -206,6 +227,8 @@ class FleetDatabase:
                     total_cost DECIMAL,
                     price_per_gallon DECIMAL,
                     fuel_type TEXT NOT NULL,
+                    is_consumable BOOLEAN DEFAULT FALSE,
+                    consumption_rate DECIMAL,
                     date_time TEXT NOT NULL,
                     latitude REAL,
                     longitude REAL,
@@ -261,11 +284,11 @@ class FleetDatabase:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    INSERT INTO vehicles VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO vehicles VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     vehicle.vehicle_id, vehicle.vin, vehicle.make, vehicle.model,
                     vehicle.year, vehicle.license_plate, vehicle.color,
-                    vehicle.engine_type, vehicle.created_at.isoformat()
+                    vehicle.engine_type, 0, vehicle.created_at.isoformat()
                 ))
                 conn.commit()
                 return True
@@ -279,13 +302,15 @@ class FleetDatabase:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    INSERT INTO fuel_events VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO fuel_events VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     fuel_event.fuel_id, fuel_event.vehicle_id, float(fuel_event.gallons),
                     fuel_event.odometer_reading,
                     float(fuel_event.total_cost) if fuel_event.total_cost else None,
                     float(fuel_event.price_per_gallon) if fuel_event.price_per_gallon else None,
-                    fuel_event.fuel_type, fuel_event.date_time.isoformat(),
+                    fuel_event.fuel_type, fuel_event.is_consumable,
+                    float(fuel_event.consumption_rate) if fuel_event.consumption_rate else None,
+                    fuel_event.date_time.isoformat(),
                     fuel_event.latitude, fuel_event.longitude, fuel_event.station_name,
                     fuel_event.receipt_image_path, fuel_event.created_at.isoformat()
                 ))
@@ -372,21 +397,31 @@ class FleetDatabase:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
 
-                # Fuel costs
+                # Fuel costs (all actual fuels: gasoline, diesel, etc.)
                 cursor.execute("""
-                    SELECT SUM(total_cost) FROM fuel_events WHERE vehicle_id = ? AND total_cost IS NOT NULL
+                    SELECT SUM(total_cost) FROM fuel_events
+                    WHERE vehicle_id = ? AND total_cost IS NOT NULL AND (is_consumable = FALSE OR is_consumable IS NULL)
                 """, (vehicle_id,))
                 fuel_cost = cursor.fetchone()[0]
                 if fuel_cost:
                     costs['fuel'] = float(fuel_cost)
 
-                # Maintenance costs
+                # Maintenance costs (including regular maintenance)
                 cursor.execute("""
                     SELECT SUM(cost) FROM maintenance_events WHERE vehicle_id = ?
                 """, (vehicle_id,))
                 maintenance_cost = cursor.fetchone()[0]
-                if maintenance_cost:
-                    costs['maintenance'] = float(maintenance_cost)
+                maintenance_total = float(maintenance_cost) if maintenance_cost else 0.0
+
+                # Non-fuel consumables like DEF (categorized as maintenance)
+                cursor.execute("""
+                    SELECT SUM(total_cost) FROM fuel_events
+                    WHERE vehicle_id = ? AND total_cost IS NOT NULL AND is_consumable = TRUE
+                """, (vehicle_id,))
+                consumable_cost = cursor.fetchone()[0]
+                consumable_total = float(consumable_cost) if consumable_cost else 0.0
+
+                costs['maintenance'] = maintenance_total + consumable_total
 
                 # Repair costs
                 cursor.execute("""
@@ -400,6 +435,142 @@ class FleetDatabase:
             logger.error(f"Error calculating total costs: {e}")
 
         return costs
+
+    def update_vehicle_mileage(self, vehicle_id: str, current_mileage: int) -> bool:
+        """Update a vehicle's current mileage."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    UPDATE vehicles SET current_mileage = ? WHERE vehicle_id = ?
+                """, (current_mileage, vehicle_id))
+                conn.commit()
+                return cursor.rowcount > 0
+        except Exception as e:
+            logger.error(f"Error updating vehicle mileage: {e}")
+            return False
+
+    def get_mpg_since_last_fuel(self, vehicle_id: str, fuel_event_id: str) -> Optional[Dict[str, Any]]:
+        """Calculate MPG since the last fuel event for a specific fuel event."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+
+                # Get current fuel event
+                cursor.execute("""
+                    SELECT odometer_reading, gallons, created_at
+                    FROM fuel_events
+                    WHERE fuel_id = ? AND vehicle_id = ?
+                """, (fuel_event_id, vehicle_id))
+                current_event = cursor.fetchone()
+
+                if not current_event:
+                    return None
+
+                current_odometer, current_gallons, current_time = current_event
+
+                # Get previous fuel event
+                cursor.execute("""
+                    SELECT odometer_reading, gallons
+                    FROM fuel_events
+                    WHERE vehicle_id = ? AND created_at < ?
+                    ORDER BY created_at DESC
+                    LIMIT 1
+                """, (vehicle_id, current_time))
+                previous_event = cursor.fetchone()
+
+                if not previous_event:
+                    return None
+
+                previous_odometer, previous_gallons = previous_event
+                miles_driven = current_odometer - previous_odometer
+
+                if previous_gallons > 0 and miles_driven > 0:
+                    mpg = miles_driven / previous_gallons
+                    return {
+                        "mpg_since_last": mpg,
+                        "miles_driven": miles_driven,
+                        "gallons_used": previous_gallons,
+                        "previous_odometer": previous_odometer,
+                        "current_odometer": current_odometer
+                    }
+                return None
+        except Exception as e:
+            logger.error(f"Error calculating MPG since last fuel: {e}")
+            return None
+
+    def get_running_mpg(self, vehicle_id: str) -> Optional[Dict[str, Any]]:
+        """Calculate running average MPG for a vehicle across all fuel events."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT odometer_reading, gallons
+                    FROM fuel_events
+                    WHERE vehicle_id = ?
+                    ORDER BY odometer_reading
+                """, (vehicle_id,))
+                events = cursor.fetchall()
+
+                if len(events) < 2:
+                    return None
+
+                first_odometer = events[0][0]
+                last_odometer = events[-1][0]
+                total_miles = last_odometer - first_odometer
+                total_gallons = sum(event[1] for event in events[:-1])  # Exclude last event gallons
+
+                if total_gallons > 0 and total_miles > 0:
+                    running_mpg = total_miles / total_gallons
+                    return {
+                        "running_mpg": running_mpg,
+                        "total_miles": total_miles,
+                        "total_gallons": total_gallons,
+                        "event_count": len(events),
+                        "first_odometer": first_odometer,
+                        "last_odometer": last_odometer
+                    }
+                return None
+        except Exception as e:
+            logger.error(f"Error calculating running MPG: {e}")
+            return None
+
+    def get_vehicle_fuel_events(self, vehicle_id: str) -> List[Dict[str, Any]]:
+        """Get all fuel events for a vehicle ordered by odometer reading."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT fuel_id, gallons, odometer_reading, total_cost, price_per_gallon,
+                           fuel_type, is_consumable, consumption_rate, date_time, latitude,
+                           longitude, station_name, receipt_image_path, created_at
+                    FROM fuel_events
+                    WHERE vehicle_id = ?
+                    ORDER BY odometer_reading
+                """, (vehicle_id,))
+
+                events = []
+                for row in cursor.fetchall():
+                    events.append({
+                        'fuel_id': row[0],
+                        'gallons': row[1],
+                        'odometer_reading': row[2],
+                        'total_cost': row[3],
+                        'price_per_gallon': row[4],
+                        'fuel_type': row[5],
+                        'is_consumable': bool(row[6]),
+                        'consumption_rate': row[7],
+                        'date_time': row[8],
+                        'latitude': row[9],
+                        'longitude': row[10],
+                        'station_name': row[11],
+                        'receipt_image_path': row[12],
+                        'created_at': row[13]
+                    })
+                return events
+        except Exception as e:
+            logger.error(f"Error getting vehicle fuel events: {e}")
+            return []
 
 
 class FleetManagerAgent(BaseAgent):
@@ -431,7 +602,8 @@ class FleetManagerAgent(BaseAgent):
                     vehicle = Vehicle(
                         vehicle_id=row[0], vin=row[1], make=row[2], model=row[3],
                         year=row[4], license_plate=row[5], color=row[6],
-                        engine_type=row[7], created_at=datetime.fromisoformat(row[8])
+                        engine_type=row[7], created_at=datetime.fromisoformat(row[8]),
+                        current_mileage=row[9] if len(row) > 9 and row[9] is not None else 0
                     )
                     self.vehicles[vehicle.vehicle_id] = vehicle
 
@@ -484,7 +656,8 @@ class FleetManagerAgent(BaseAgent):
         station_name: Optional[str] = None,
         latitude: Optional[float] = None,
         longitude: Optional[float] = None,
-        receipt_image_path: Optional[str] = None
+        receipt_image_path: Optional[str] = None,
+        consumption_rate: Optional[float] = None
     ) -> Dict[str, Any]:
         """Log a fuel event for a vehicle with multi-modal input support."""
         try:
@@ -503,7 +676,8 @@ class FleetManagerAgent(BaseAgent):
                 station_name=station_name,
                 latitude=latitude,
                 longitude=longitude,
-                receipt_image_path=receipt_image_path
+                receipt_image_path=receipt_image_path,
+                consumption_rate=Decimal(str(consumption_rate)) if consumption_rate else None
             )
 
             # Save to database
@@ -513,15 +687,26 @@ class FleetManagerAgent(BaseAgent):
                 total_costs = self.database.get_vehicle_total_costs(vehicle_id)
 
                 # Prepare accounting notification
+                if fuel_event.is_consumable:
+                    # Non-fuel consumables like DEF are categorized as maintenance
+                    expense_type = "maintenance"
+                    category = "Vehicle Maintenance"
+                    description = f"Consumable: {gallons} gallons of {fuel_type}"
+                else:
+                    # Regular fuels (gasoline, diesel, etc.)
+                    expense_type = "fuel"
+                    category = "Vehicle Fuel"
+                    description = f"Fuel purchase: {gallons} gallons of {fuel_type}"
+
                 accounting_data = ExpenseData(
                     expense_id=fuel_event.fuel_id,
                     vehicle_id=vehicle_id,
-                    expense_type="fuel",
+                    expense_type=expense_type,
                     amount=fuel_event.total_cost or Decimal('0'),
                     date=fuel_event.date_time,
                     vendor=station_name,
-                    description=f"Fuel purchase: {gallons} gallons of {fuel_type}",
-                    category="Vehicle Fuel"
+                    description=description,
+                    category=category
                 )
 
                 # Notify accounting
@@ -725,6 +910,98 @@ class FleetManagerAgent(BaseAgent):
                 "success": False,
                 "message": f"Failed to notify accounting: {str(e)}"
             }
+
+    @tool
+    def update_vehicle_mileage(self, vehicle_id: str, current_mileage: int) -> Dict[str, Any]:
+        """Update a vehicle's current mileage."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            # Update vehicle mileage in database
+            success = self.database.update_vehicle_mileage(vehicle_id, current_mileage)
+
+            if success:
+                # Update in-memory vehicle object
+                self.vehicles[vehicle_id].current_mileage = current_mileage
+                logger.info(f"Updated vehicle {vehicle_id} mileage to {current_mileage}")
+
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "current_mileage": current_mileage,
+                    "message": "Vehicle mileage updated successfully"
+                }
+            else:
+                return {"success": False, "message": "Failed to update vehicle mileage"}
+
+        except Exception as e:
+            logger.error(f"Error updating vehicle mileage: {e}")
+            return {"success": False, "message": str(e)}
+
+    @tool
+    def calculate_mpg_since_last_fuel(self, vehicle_id: str, fuel_event_id: str) -> Dict[str, Any]:
+        """Calculate MPG since the last fuel event for a specific fuel event."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            mpg_data = self.database.get_mpg_since_last_fuel(vehicle_id, fuel_event_id)
+
+            if mpg_data:
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "fuel_event_id": fuel_event_id,
+                    "mpg_since_last": mpg_data["mpg_since_last"],
+                    "miles_driven": mpg_data["miles_driven"],
+                    "gallons_used": mpg_data["gallons_used"],
+                    "previous_odometer": mpg_data["previous_odometer"],
+                    "current_odometer": mpg_data["current_odometer"],
+                    "message": "MPG calculation completed"
+                }
+            else:
+                return {
+                    "success": False,
+                    "message": "Insufficient data for MPG calculation (need previous fuel event)"
+                }
+
+        except Exception as e:
+            logger.error(f"Error calculating MPG since last fuel: {e}")
+            return {"success": False, "message": str(e)}
+
+    @tool
+    def calculate_running_mpg(self, vehicle_id: str) -> Dict[str, Any]:
+        """Calculate running average MPG for a vehicle across all fuel events."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            running_mpg_data = self.database.get_running_mpg(vehicle_id)
+
+            if running_mpg_data:
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "running_average_mpg": running_mpg_data["running_mpg"],
+                    "total_miles_driven": running_mpg_data["total_miles"],
+                    "total_gallons_used": running_mpg_data["total_gallons"],
+                    "fuel_events_count": running_mpg_data["event_count"],
+                    "odometer_range": {
+                        "first": running_mpg_data["first_odometer"],
+                        "last": running_mpg_data["last_odometer"]
+                    },
+                    "message": "Running MPG calculation completed"
+                }
+            else:
+                return {
+                    "success": False,
+                    "message": "Insufficient data for running MPG calculation (need multiple fuel events)"
+                }
+
+        except Exception as e:
+            logger.error(f"Error calculating running MPG: {e}")
+            return {"success": False, "message": str(e)}
 
     @tool
     def get_vehicle_summary(self, vehicle_id: str) -> Dict[str, Any]:

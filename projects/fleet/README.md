@@ -93,6 +93,15 @@ print(f"Fuel efficiency: {summary['fuel_efficiency_mpg']:.1f} MPG")
 cd projects/fleet
 python demo_fleet_agent.py
 
+# Run DEF tracking demonstration
+python demo_def_mpg_tracking.py
+
+# Run combined fuel and DEF tracking
+python demo_combined_fuel_and_def.py
+
+# Show fuel events with vehicle state and MPG calculations
+python show_fuel_events_with_state.py
+
 # Run the basic example
 python agents/fleet_manager_agent_compatible.py
 ```
@@ -110,6 +119,8 @@ python agents/fleet_manager_agent_compatible.py
 - **Location**: GPS coordinates (latitude, longitude)
 - **Images**: Receipt image file paths
 - **Calculations**: Automatic price per gallon ↔ total cost conversion
+- **DEF Tracking**: DEF (Diesel Exhaust Fluid) tracked in MPG but categorized as maintenance
+- **Fuel Types**: Gasoline, Diesel, E85, Biodiesel (fuel costs), DEF (maintenance costs)
 
 ### Maintenance Events
 - Maintenance type, description, cost
@@ -157,15 +168,24 @@ The agent automatically notifies an accounting system for all expenses:
 
 ### Automatic Calculations
 - **Fuel Efficiency**: MPG calculations from multiple fuel events
+- **DEF Efficiency**: MPG calculations for DEF consumption (typically 200-500 MPG)
 - **Cost Per Mile**: Maintenance and repair cost analysis
 - **Total Operating Costs**: Comprehensive expense tracking by category
 - **Price Validation**: Automatic cost cross-calculations
 
+### DEF (Diesel Exhaust Fluid) Tracking
+- **Tracking Method**: MPG calculations (same as fuel)
+- **Cost Category**: Maintenance expenses (not fuel expenses)
+- **Typical Consumption**: 2-5% of diesel fuel volume
+- **Expected MPG**: 200-500 MPG (very high due to low consumption)
+- **Accounting**: Automatically categorized as maintenance for tax purposes
+
 ### Reporting Features
 - Vehicle-specific cost breakdowns
 - Fleet-wide expense summaries
-- Fuel efficiency trends
+- Fuel efficiency trends (diesel and DEF separate)
 - Maintenance scheduling alerts
+- DEF consumption projections
 
 ## 🔄 Claude 2.0 Agent SDK Migration
 
