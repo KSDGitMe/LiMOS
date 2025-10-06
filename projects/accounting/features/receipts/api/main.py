@@ -46,7 +46,6 @@ from .models import (
 )
 from ..models.receipt import ReceiptType, ReceiptStatus
 from ..services.storage import ReceiptStorageService
-from ...agents.factory import create_receipt_agent
 from ....agents.receipt_agent import ReceiptAgent
 
 
@@ -96,11 +95,12 @@ async def startup_event():
 
     # Initialize receipt agent
     try:
-        receipt_agent = await create_receipt_agent(
+        from ....agents.receipt_agent import ReceiptAgent
+        receipt_agent = ReceiptAgent(
             name="APIReceiptAgent",
-            environment=os.getenv("ENVIRONMENT", "development"),
-            auto_register=True
+            environment=os.getenv("ENVIRONMENT", "development")
         )
+        await receipt_agent.initialize()
         print("✅ Receipt agent initialized")
     except Exception as e:
         print(f"❌ Failed to initialize receipt agent: {e}")

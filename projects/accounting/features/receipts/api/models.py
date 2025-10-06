@@ -77,7 +77,7 @@ class BatchProcessingModel(BaseModel):
 
 class ExportRequestModel(BaseModel):
     """Model for export request."""
-    format: str = Field(..., regex="^(json|csv)$", description="Export format")
+    format: str = Field(..., pattern="^(json|csv)$", description="Export format")
     date_from: Optional[datetime] = Field(default=None, description="Start date for export")
     date_to: Optional[datetime] = Field(default=None, description="End date for export")
     vendor_name: Optional[str] = Field(default=None, description="Filter by vendor name")

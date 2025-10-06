@@ -7,6 +7,7 @@ An AI-powered multi-agent system for comprehensive life management, built with C
 LiMOS is a sophisticated agent-based application that helps manage various aspects of life through specialized AI agents:
 
 - 💰 **Accounting**: Receipt processing, budgeting, expense tracking
+- 🚛 **Fleet Management**: Vehicle tracking, fuel events, maintenance, repairs
 - 🍎 **Nutrition**: Meal planning, calorie tracking, recipe management
 - 🛒 **Grocery Management**: Shopping lists, price tracking, inventory
 - 🏥 **Health Tracking**: Glucose management, appointments, medications
@@ -65,6 +66,7 @@ python -m pytest tests/
 - [Architecture Overview](system/docs/architecture/overview.md)
 - [Development Setup](system/docs/development/setup.md)
 - [Receipt Processing API Guide](projects/accounting/features/receipts/api/README.md)
+- [Fleet Management Agent Guide](projects/fleet/README.md)
 - [API Client Examples](projects/accounting/features/receipts/api/examples/client_examples.py)
 
 ## 🧩 Project Structure
@@ -104,6 +106,25 @@ uvicorn projects.accounting.features.receipts.api.main:app --reload --host 0.0.0
 **Interactive Documentation:**
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
+
+### Running the Fleet Management Agent
+
+```bash
+# Development mode
+cd projects/fleet
+python demo_fleet_agent.py
+
+# Run agent directly
+python agents/fleet_manager_agent_compatible.py
+```
+
+**Fleet Management Features:**
+- **Vehicle Management**: Add/track vehicles with VIN, make, model, year
+- **Fuel Events**: Multi-modal logging with GPS coordinates and receipts
+- **Maintenance Tracking**: Service logs with parts replacement and scheduling
+- **Repair Management**: Repair tracking with warranty and severity levels
+- **Cost Analytics**: Fuel efficiency, cost per mile, operating expense tracking
+- **Accounting Integration**: Automatic expense notifications for business accounting
 
 ### Running Tests
 
