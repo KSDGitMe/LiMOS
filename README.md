@@ -64,8 +64,8 @@ python -m pytest tests/
 
 - [Architecture Overview](system/docs/architecture/overview.md)
 - [Development Setup](system/docs/development/setup.md)
-- [Agent Development Guide](system/docs/development/agent-guide.md)
-- [API Documentation](system/docs/api/README.md)
+- [Receipt Processing API Guide](projects/accounting/features/receipts/api/README.md)
+- [API Client Examples](projects/accounting/features/receipts/api/examples/client_examples.py)
 
 ## 🧩 Project Structure
 
@@ -82,15 +82,28 @@ LiMOS/
 
 ## 🛠️ Development
 
-### Running the API Server
+### Running the Receipt Processing API
 
 ```bash
 # Development mode
-uvicorn projects.accounting.features.receipts.api.main:app --reload
+cd projects/accounting/features/receipts/api
+python main.py
 
-# Production mode
-uvicorn projects.accounting.features.receipts.api.main:app --host 0.0.0.0 --port 8000
+# Or with uvicorn directly
+uvicorn projects.accounting.features.receipts.api.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+**API Endpoints:**
+- **Health Check**: `GET /health` - API status and system health
+- **Process Receipt**: `POST /receipts/process` - Upload and process receipt images
+- **Get Receipt**: `GET /receipts/{id}` - Retrieve specific receipt
+- **Search Receipts**: `POST /receipts/search` - Advanced search with filters
+- **Batch Processing**: `POST /batch/process` - Process multiple receipts
+- **Export Data**: `POST /receipts/export` - Export receipts to JSON/CSV
+
+**Interactive Documentation:**
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
 ### Running Tests
 
