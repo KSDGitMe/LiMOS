@@ -1,0 +1,31 @@
+# LiMOS Cursor Rules
+
+## Project Type
+Multi-agent AI system with FastAPI backend
+
+## Key Technologies
+- Claude Agent SDK 2.0
+- FastAPI
+- Python 3.10+
+- Async/await patterns
+
+## Code Style
+- Use Black for formatting
+- Type hints required
+- Async functions for I/O
+- Comprehensive docstrings
+
+## File Organization
+- Feature-first structure
+- Domain separation
+- Shared utilities
+
+## Testing
+- pytest for all tests
+- Async test support
+- High coverage required
+
+## Documentation
+- README in each domain
+- API documentation
+- Architecture decisions

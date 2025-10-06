@@ -1,0 +1,12 @@
+# Default owners for everything
+* @YOUR_USERNAME
+
+# Core infrastructure
+/core/ @YOUR_USERNAME
+
+# System configuration
+/system/ @YOUR_USERNAME
+
+# Domain owners (add as team grows)
+/projects/accounting/ @YOUR_USERNAME
+/projects/nutrition/ @YOUR_USERNAME
