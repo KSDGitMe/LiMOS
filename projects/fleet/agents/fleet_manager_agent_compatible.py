@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Fleet Management Agent - Compatible Version
+Fleet Management Agent - Standalone Compatible Version
 
-This is a forward-compatible implementation that demonstrates the Fleet Management Agent
-functionality using the current Anthropic SDK structure. It's designed to be easily
-migrated to the Claude 2.0 Agent SDK when available.
+This is a standalone implementation that demonstrates the Fleet Management Agent
+functionality using the current Anthropic SDK structure without requiring the LiMOS
+BaseAgent framework. This version can run independently.
 
 Features:
 - Vehicle details management (VIN, make, model, year, license plate)
@@ -34,25 +34,25 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# Tool decorator simulation (will use @agent.tool when SDK is available)
+# Tool decorator for method discovery
 def tool(func: Callable) -> Callable:
     """
-    Tool decorator simulation for Claude 2.0 Agent SDK compatibility.
+    Tool decorator for method discovery.
 
-    This will be replaced with the official @agent.tool decorator when
-    the Claude 2.0 Agent SDK is released.
+    Marks methods as agent tools for auto-discovery and invocation.
     """
     func._is_tool = True
     func._tool_name = func.__name__
     return func
 
 
-# Agent base class simulation (will inherit from anthropic.agents.Agent)
+# Simple agent base class for standalone usage
 class BaseAgent:
     """
-    Base agent class simulation for Claude 2.0 Agent SDK compatibility.
+    Simple base agent class for standalone usage.
 
-    This will be replaced with anthropic.agents.Agent when the SDK is released.
+    Provides tool discovery and basic agent structure without requiring
+    external frameworks.
     """
 
     def __init__(self, name: str = "Agent", api_key: Optional[str] = None):

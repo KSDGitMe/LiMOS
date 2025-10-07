@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fleet Management Agent using Claude 2.0 Agent SDK
+Fleet Management Agent
 
 This agent manages vehicle operational records including:
 - Vehicle details and information
@@ -9,8 +9,10 @@ This agent manages vehicle operational records including:
 - Fuel events with multi-modal input support
 - Automatic cost calculations and accounting notifications
 
+Uses LiMOS BaseAgent architecture with Anthropic SDK.
+
 Author: Claude Code
-Version: 1.0.0
+Version: 2.0.0
 """
 
 import json
@@ -23,8 +25,13 @@ from typing import Dict, List, Optional, Any, Union
 import logging
 
 from anthropic import Anthropic
-from anthropic.agents import Agent, tool
 from pydantic import BaseModel, Field, validator
+
+# Import LiMOS base agent framework
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+from core.agents.base import BaseAgent, AgentConfig, AgentCapability
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -380,22 +387,63 @@ class FleetDatabase:
         return costs
 
 
-class FleetManagerAgent(Agent):
+class FleetManagerAgent(BaseAgent):
     """
-    Fleet Management Agent using Claude 2.0 Agent SDK.
+    Fleet Management Agent.
 
     Manages vehicle operational records including fuel events, maintenance,
     repairs, and insurance tracking with automatic cost calculations and
     accounting notifications.
+
+    Uses LiMOS BaseAgent architecture for consistent agent lifecycle management.
     """
 
-    def __init__(self, name: str = "FleetManagerAgent", **kwargs):
+    def __init__(self, config: Optional[AgentConfig] = None, **kwargs):
         """Initialize the Fleet Manager Agent."""
-        super().__init__(name=name, **kwargs)
+        if config is None:
+            config = AgentConfig(
+                name="FleetManagerAgent",
+                description="Manages fleet vehicle operations, maintenance, and expenses",
+                capabilities=[
+                    AgentCapability.DATABASE_OPERATIONS,
+                    AgentCapability.DATA_EXTRACTION,
+                    AgentCapability.API_INTEGRATION
+                ]
+            )
+        super().__init__(config, **kwargs)
         self.database = FleetDatabase()
         self.vehicles: Dict[str, Vehicle] = {}
+        logger.info(f"FleetManagerAgent '{self.name}' initialized")
+
+    async def _initialize(self) -> None:
+        """Agent-specific initialization - load vehicles from database."""
         self.load_vehicles()
-        logger.info(f"FleetManagerAgent '{name}' initialized")
+
+    async def _execute(self, input_data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
+        """Execute agent operations based on input."""
+        operation = input_data.get("operation")
+        if not operation:
+            return {"success": False, "error": "No operation specified"}
+
+        # Route to appropriate method
+        method_map = {
+            "add_vehicle": self.add_vehicle,
+            "log_fuel_event": self.log_fuel_event,
+            "log_maintenance_event": self.log_maintenance_event,
+            "log_repair_event": self.log_repair_event,
+            "get_vehicle_summary": self.get_vehicle_summary,
+            "update_vehicle_mileage": self.update_vehicle_mileage,
+            "calculate_mpg_since_last_fuel": self.calculate_mpg_since_last_fuel,
+            "calculate_running_mpg": self.calculate_running_mpg
+        }
+
+        method = method_map.get(operation)
+        if not method:
+            return {"success": False, "error": f"Unknown operation: {operation}"}
+
+        # Execute the method with provided parameters
+        params = input_data.get("parameters", {})
+        return method(**params)
 
     def load_vehicles(self):
         """Load existing vehicles from database."""
@@ -417,7 +465,6 @@ class FleetManagerAgent(Agent):
         except Exception as e:
             logger.error(f"Error loading vehicles: {e}")
 
-    @tool
     def add_vehicle(
         self,
         vin: str,
@@ -464,7 +511,6 @@ class FleetManagerAgent(Agent):
             logger.error(f"Error adding vehicle: {e}")
             return {"success": False, "message": str(e)}
 
-    @tool
     def log_fuel_event(
         self,
         vehicle_id: str,
@@ -563,7 +609,6 @@ class FleetManagerAgent(Agent):
             logger.error(f"Error logging fuel event: {e}")
             return {"success": False, "message": str(e)}
 
-    @tool
     def log_maintenance_event(
         self,
         vehicle_id: str,
@@ -650,7 +695,6 @@ class FleetManagerAgent(Agent):
             logger.error(f"Error logging maintenance event: {e}")
             return {"success": False, "message": str(e)}
 
-    @tool
     def log_repair_event(
         self,
         vehicle_id: str,
@@ -735,7 +779,6 @@ class FleetManagerAgent(Agent):
             logger.error(f"Error logging repair event: {e}")
             return {"success": False, "message": str(e)}
 
-    @tool
     def notify_accounting(self, expense_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Notify the Accounting Agent of a new expense.
@@ -790,7 +833,95 @@ class FleetManagerAgent(Agent):
                 "message": f"Failed to notify accounting: {str(e)}"
             }
 
-    @tool
+    def update_vehicle_mileage(self, vehicle_id: str, current_mileage: int) -> Dict[str, Any]:
+        """Update a vehicle's current mileage."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            # Update vehicle mileage in database
+            success = self.database.update_vehicle_mileage(vehicle_id, current_mileage)
+
+            if success:
+                # Update in-memory vehicle object
+                self.vehicles[vehicle_id].current_mileage = current_mileage
+                logger.info(f"Updated vehicle {vehicle_id} mileage to {current_mileage}")
+
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "current_mileage": current_mileage,
+                    "message": "Vehicle mileage updated successfully"
+                }
+            else:
+                return {"success": False, "message": "Failed to update vehicle mileage"}
+
+        except Exception as e:
+            logger.error(f"Error updating vehicle mileage: {e}")
+            return {"success": False, "message": str(e)}
+
+    def calculate_mpg_since_last_fuel(self, vehicle_id: str, fuel_event_id: str) -> Dict[str, Any]:
+        """Calculate MPG since the last fuel event for a specific fuel event."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            mpg_data = self.database.get_mpg_since_last_fuel(vehicle_id, fuel_event_id)
+
+            if mpg_data:
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "fuel_event_id": fuel_event_id,
+                    "mpg_since_last": mpg_data["mpg_since_last"],
+                    "miles_driven": mpg_data["miles_driven"],
+                    "gallons_used": mpg_data["gallons_used"],
+                    "previous_odometer": mpg_data["previous_odometer"],
+                    "current_odometer": mpg_data["current_odometer"],
+                    "message": "MPG calculation completed"
+                }
+            else:
+                return {
+                    "success": False,
+                    "message": "Insufficient data for MPG calculation (need previous fuel event)"
+                }
+
+        except Exception as e:
+            logger.error(f"Error calculating MPG since last fuel: {e}")
+            return {"success": False, "message": str(e)}
+
+    def calculate_running_mpg(self, vehicle_id: str) -> Dict[str, Any]:
+        """Calculate running average MPG for a vehicle across all fuel events."""
+        try:
+            if vehicle_id not in self.vehicles:
+                return {"success": False, "message": "Vehicle not found"}
+
+            running_mpg_data = self.database.get_running_mpg(vehicle_id)
+
+            if running_mpg_data:
+                return {
+                    "success": True,
+                    "vehicle_id": vehicle_id,
+                    "running_average_mpg": running_mpg_data["running_mpg"],
+                    "total_miles_driven": running_mpg_data["total_miles"],
+                    "total_gallons_used": running_mpg_data["total_gallons"],
+                    "fuel_events_count": running_mpg_data["event_count"],
+                    "odometer_range": {
+                        "first": running_mpg_data["first_odometer"],
+                        "last": running_mpg_data["last_odometer"]
+                    },
+                    "message": "Running MPG calculation completed"
+                }
+            else:
+                return {
+                    "success": False,
+                    "message": "Insufficient data for running MPG calculation (need multiple fuel events)"
+                }
+
+        except Exception as e:
+            logger.error(f"Error calculating running MPG: {e}")
+            return {"success": False, "message": str(e)}
+
     def get_vehicle_summary(self, vehicle_id: str) -> Dict[str, Any]:
         """
         Get a comprehensive summary of a vehicle's records.
@@ -829,7 +960,7 @@ class FleetManagerAgent(Agent):
             return {"success": False, "message": str(e)}
 
 
-def main():
+async def main():
     """
     Example main script demonstrating Fleet Manager Agent functionality.
 
@@ -844,9 +975,14 @@ def main():
 
     # Initialize the agent
     try:
-        # You would typically provide your Anthropic API key here
-        # For demo purposes, we'll create the agent without API calls
-        agent = FleetManagerAgent(name="DemoFleetManager")
+        # Create agent config
+        config = AgentConfig(
+            name="DemoFleetManager",
+            description="Fleet Management Demo Agent",
+            capabilities=[AgentCapability.DATABASE_OPERATIONS]
+        )
+        agent = FleetManagerAgent(config=config)
+        await agent.initialize()
         print("✅ Fleet Manager Agent initialized successfully")
     except Exception as e:
         print(f"❌ Error initializing agent: {e}")
@@ -959,4 +1095,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import asyncio
+    asyncio.run(main())

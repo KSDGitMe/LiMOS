@@ -1,6 +1,6 @@
 # Fleet Management Agent
 
-A comprehensive Fleet Management Agent built with Claude 2.0 Agent SDK compatibility layer for the LiMOS system.
+A comprehensive Fleet Management Agent for the LiMOS system using the Anthropic SDK.
 
 ## 🚛 Overview
 
@@ -23,7 +23,7 @@ The Fleet Management Agent provides complete vehicle operational record manageme
 - **Automatic Calculations**: Cost per mile, fuel efficiency (MPG), price per gallon calculations
 - **Database Persistence**: SQLite database with proper foreign key relationships
 - **Accounting Notifications**: Automatic expense categorization and tax-deductible flagging
-- **Tool Decorators**: All functions properly decorated with `@tool` for Claude 2.0 Agent SDK
+- **Tool Decorators**: All functions properly decorated with `@tool` for method discovery
 
 ### 🛠️ Agent Tools
 
@@ -187,22 +187,35 @@ The agent automatically notifies an accounting system for all expenses:
 - Maintenance scheduling alerts
 - DEF consumption projections
 
-## 🔄 Claude 2.0 Agent SDK Migration
+## 🏗️ Architecture
 
-This implementation uses a compatibility layer that will seamlessly migrate to the official Claude 2.0 Agent SDK when available:
+The Fleet Management Agent is available in two implementations:
+
+1. **LiMOS BaseAgent Integration** (`fleet_manager_agent.py`):
+   - Uses the LiMOS `BaseAgent` framework
+   - Async/await architecture
+   - Full lifecycle management and metrics
+   - Integrated with LiMOS agent registry
+
+2. **Standalone Compatible Version** (`fleet_manager_agent_compatible.py`):
+   - Independent implementation
+   - No external framework dependencies
+   - Simple tool discovery pattern
+   - Easy to deploy standalone
 
 ```python
-# Current implementation (compatible)
-from anthropic import Anthropic  # Current SDK
+# LiMOS BaseAgent version
+from core.agents.base import BaseAgent, AgentConfig
+class FleetManagerAgent(BaseAgent):
+    async def _execute(self, input_data, **kwargs):
+        # Agent operations
+
+# Standalone version
 from agents.fleet_manager_agent_compatible import BaseAgent, tool
-
-# Future migration (when SDK available)
-from anthropic.agents import Agent, tool  # Official Claude 2.0 SDK
-
-class FleetManagerAgent(Agent):  # Will inherit from official Agent class
-    @tool  # Will use official @tool decorator
+class FleetManagerAgent(BaseAgent):
+    @tool
     def log_fuel_event(self, ...):
-        # Same implementation, no changes needed
+        # Direct method invocation
 ```
 
 ## 🧪 Testing
@@ -229,8 +242,8 @@ Tests cover:
 projects/fleet/
 ├── agents/
 │   ├── __init__.py
-│   ├── fleet_manager_agent.py                # Official SDK version (future)
-│   └── fleet_manager_agent_compatible.py    # Compatible version (current)
+│   ├── fleet_manager_agent.py                # LiMOS BaseAgent version
+│   └── fleet_manager_agent_compatible.py    # Standalone version
 ├── tests/
 │   └── test_fleet_manager_agent.py          # Comprehensive test suite
 ├── demo_fleet_agent.py                      # Full demonstration
@@ -240,13 +253,13 @@ projects/fleet/
 
 ## 🔮 Future Enhancements
 
-When the official Claude 2.0 Agent SDK is released:
+Planned improvements:
 
-1. **Direct Migration**: Replace compatibility layer with official SDK
-2. **Enhanced AI Integration**: Advanced analysis and predictions
-3. **Real-time Processing**: Live data streaming and alerts
-4. **Advanced Analytics**: Machine learning for maintenance prediction
-5. **Mobile Integration**: Mobile app support for field operations
+1. **Enhanced AI Integration**: Advanced analysis and predictions using Claude
+2. **Real-time Processing**: Live data streaming and alerts
+3. **Advanced Analytics**: Machine learning for maintenance prediction
+4. **Mobile Integration**: Mobile app support for field operations
+5. **API Gateway**: RESTful API for external integrations
 
 ## 📞 Support
 

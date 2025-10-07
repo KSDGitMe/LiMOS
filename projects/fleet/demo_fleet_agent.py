@@ -2,8 +2,8 @@
 """
 Fleet Manager Agent - Final Demo
 
-This demo showcases the complete Fleet Management Agent built with Claude 2.0 Agent SDK
-compatibility layer. It demonstrates all required features including:
+This demo showcases the complete Fleet Management Agent. It demonstrates all
+required features including:
 
 ✅ Vehicle management (VIN, make, model, year, license plate)
 ✅ Insurance records tracking
@@ -27,7 +27,7 @@ def main():
     """
     print("🚛 Fleet Manager Agent - Complete Demonstration")
     print("=" * 70)
-    print("Built with Claude 2.0 Agent SDK Compatibility Layer")
+    print("Using standalone compatibility layer for agent operations")
     print("=" * 70)
 
     # Initialize the agent
@@ -266,7 +266,7 @@ def main():
     print(f"✅ Comprehensive cost metrics and vehicle summaries")
     print(f"✅ SQLite database persistence for all records")
     print(f"✅ All @tool decorated functions working correctly")
-    print(f"\n🔮 Ready for migration to official Claude 2.0 Agent SDK when available!")
+    print(f"\n✅ Fleet Manager Agent demonstration completed successfully!")
 
 
 if __name__ == "__main__":
