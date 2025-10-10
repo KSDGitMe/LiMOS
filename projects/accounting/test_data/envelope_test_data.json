@@ -1,0 +1,736 @@
+{
+  "chart_of_accounts": [
+    {
+      "account_id": "1000",
+      "account_number": "1000",
+      "account_name": "Cash - Checking",
+      "account_type": "asset",
+      "opening_balance": 25000.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "1100",
+      "account_number": "1100",
+      "account_name": "Cash - Savings",
+      "account_type": "asset",
+      "opening_balance": 50000.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "2100",
+      "account_number": "2100",
+      "account_name": "Credit Card A",
+      "account_type": "liability",
+      "opening_balance": 2500.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": "1600"
+    },
+    {
+      "account_id": "2110",
+      "account_number": "2110",
+      "account_name": "Credit Card B",
+      "account_type": "liability",
+      "opening_balance": 1200.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": "1610"
+    },
+    {
+      "account_id": "2300",
+      "account_number": "2300",
+      "account_name": "Auto Loan Payable",
+      "account_type": "liability",
+      "opening_balance": 18500.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": "1620"
+    },
+    {
+      "account_id": "3000",
+      "account_number": "3000",
+      "account_name": "Owner's Equity",
+      "account_type": "equity",
+      "opening_balance": 52000.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "5000",
+      "account_number": "5000",
+      "account_name": "Salary Income",
+      "account_type": "revenue",
+      "opening_balance": 0.0,
+      "budget_envelope_id": null,
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6300",
+      "account_number": "6300",
+      "account_name": "Grocery Stores",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1500",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6310",
+      "account_number": "6310",
+      "account_name": "Restaurants - Dining Out",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1510",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6400",
+      "account_number": "6400",
+      "account_name": "Gas & Auto Fuel",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1520",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6500",
+      "account_number": "6500",
+      "account_name": "Entertainment",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1530",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6600",
+      "account_number": "6600",
+      "account_name": "Clothing & Shoes",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1540",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6700",
+      "account_number": "6700",
+      "account_name": "Home Maintenance",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1550",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6800",
+      "account_number": "6800",
+      "account_name": "Gifts",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1560",
+      "payment_envelope_id": null
+    },
+    {
+      "account_id": "6900",
+      "account_number": "6900",
+      "account_name": "Personal Care",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "budget_envelope_id": "1570",
+      "payment_envelope_id": null
+    }
+  ],
+  "budget_envelopes": [
+    {
+      "envelope_id": "1500",
+      "envelope_number": "1500",
+      "envelope_name": "Groceries",
+      "envelope_type": "budget",
+      "category": "Food & Dining",
+      "monthly_allocation": 800.0,
+      "rollover_policy": "accumulate",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 1
+    },
+    {
+      "envelope_id": "1510",
+      "envelope_number": "1510",
+      "envelope_name": "Dining Out",
+      "envelope_type": "budget",
+      "category": "Food & Dining",
+      "monthly_allocation": 300.0,
+      "rollover_policy": "reset",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 2
+    },
+    {
+      "envelope_id": "1520",
+      "envelope_number": "1520",
+      "envelope_name": "Gas & Auto",
+      "envelope_type": "budget",
+      "category": "Transportation",
+      "monthly_allocation": 250.0,
+      "rollover_policy": "accumulate",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 3
+    },
+    {
+      "envelope_id": "1530",
+      "envelope_number": "1530",
+      "envelope_name": "Entertainment",
+      "envelope_type": "budget",
+      "category": "Leisure",
+      "monthly_allocation": 150.0,
+      "rollover_policy": "reset",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 4
+    },
+    {
+      "envelope_id": "1540",
+      "envelope_number": "1540",
+      "envelope_name": "Clothing",
+      "envelope_type": "budget",
+      "category": "Personal",
+      "monthly_allocation": 200.0,
+      "rollover_policy": "cap",
+      "rollover_cap": 600.0,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 5
+    },
+    {
+      "envelope_id": "1550",
+      "envelope_number": "1550",
+      "envelope_name": "Home Maintenance",
+      "envelope_type": "budget",
+      "category": "Housing",
+      "monthly_allocation": 500.0,
+      "rollover_policy": "accumulate",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 6
+    },
+    {
+      "envelope_id": "1560",
+      "envelope_number": "1560",
+      "envelope_name": "Gifts",
+      "envelope_type": "budget",
+      "category": "Personal",
+      "monthly_allocation": 100.0,
+      "rollover_policy": "accumulate",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 7
+    },
+    {
+      "envelope_id": "1570",
+      "envelope_number": "1570",
+      "envelope_name": "Personal Care",
+      "envelope_type": "budget",
+      "category": "Personal",
+      "monthly_allocation": 100.0,
+      "rollover_policy": "reset",
+      "rollover_cap": null,
+      "current_balance": 0.0,
+      "is_active": true,
+      "display_order": 8
+    }
+  ],
+  "payment_envelopes": [
+    {
+      "envelope_id": "1600",
+      "envelope_number": "1600",
+      "envelope_name": "Credit Card A - Payment Reserve",
+      "envelope_type": "payment",
+      "linked_account_id": "2100",
+      "linked_account_name": "Credit Card A",
+      "category": "Credit Cards",
+      "current_balance": 2500.0,
+      "is_active": true,
+      "display_order": 1
+    },
+    {
+      "envelope_id": "1610",
+      "envelope_number": "1610",
+      "envelope_name": "Credit Card B - Payment Reserve",
+      "envelope_type": "payment",
+      "linked_account_id": "2110",
+      "linked_account_name": "Credit Card B",
+      "category": "Credit Cards",
+      "current_balance": 1200.0,
+      "is_active": true,
+      "display_order": 2
+    },
+    {
+      "envelope_id": "1620",
+      "envelope_number": "1620",
+      "envelope_name": "Auto Loan - Payment Reserve",
+      "envelope_type": "payment",
+      "linked_account_id": "2300",
+      "linked_account_name": "Auto Loan Payable",
+      "category": "Loans",
+      "current_balance": 18500.0,
+      "is_active": true,
+      "display_order": 3
+    }
+  ],
+  "budget_allocations": [
+    {
+      "allocation_id": "alloc-1500-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1500",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 800.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Groceries",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585758"
+    },
+    {
+      "allocation_id": "alloc-1510-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1510",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 300.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Dining Out",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585861"
+    },
+    {
+      "allocation_id": "alloc-1520-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1520",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 250.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Gas & Auto",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585864"
+    },
+    {
+      "allocation_id": "alloc-1530-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1530",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 150.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Entertainment",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585866"
+    },
+    {
+      "allocation_id": "alloc-1540-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1540",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 200.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Clothing",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585868"
+    },
+    {
+      "allocation_id": "alloc-1550-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1550",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 500.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Home Maintenance",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585870"
+    },
+    {
+      "allocation_id": "alloc-1560-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1560",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 100.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Gifts",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585871"
+    },
+    {
+      "allocation_id": "alloc-1570-2025-01",
+      "source_account_id": "1000",
+      "envelope_id": "1570",
+      "envelope_type": "budget",
+      "allocation_date": "2025-01-01",
+      "amount": 100.0,
+      "period_label": "2025-01",
+      "description": "Monthly allocation for Personal Care",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585873"
+    },
+    {
+      "allocation_id": "alloc-1500-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1500",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 800.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Groceries",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585875"
+    },
+    {
+      "allocation_id": "alloc-1510-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1510",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 300.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Dining Out",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585876"
+    },
+    {
+      "allocation_id": "alloc-1520-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1520",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 250.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Gas & Auto",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585878"
+    },
+    {
+      "allocation_id": "alloc-1530-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1530",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 150.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Entertainment",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585882"
+    },
+    {
+      "allocation_id": "alloc-1540-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1540",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 200.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Clothing",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585884"
+    },
+    {
+      "allocation_id": "alloc-1550-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1550",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 500.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Home Maintenance",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585885"
+    },
+    {
+      "allocation_id": "alloc-1560-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1560",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 100.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Gifts",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585886"
+    },
+    {
+      "allocation_id": "alloc-1570-2025-02",
+      "source_account_id": "1000",
+      "envelope_id": "1570",
+      "envelope_type": "budget",
+      "allocation_date": "2025-02-01",
+      "amount": 100.0,
+      "period_label": "2025-02",
+      "description": "Monthly allocation for Personal Care",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585888"
+    },
+    {
+      "allocation_id": "alloc-1500-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1500",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 800.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Groceries",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585889"
+    },
+    {
+      "allocation_id": "alloc-1510-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1510",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 300.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Dining Out",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585891"
+    },
+    {
+      "allocation_id": "alloc-1520-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1520",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 250.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Gas & Auto",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585892"
+    },
+    {
+      "allocation_id": "alloc-1530-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1530",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 150.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Entertainment",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585894"
+    },
+    {
+      "allocation_id": "alloc-1540-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1540",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 200.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Clothing",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585895"
+    },
+    {
+      "allocation_id": "alloc-1550-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1550",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 500.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Home Maintenance",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585897"
+    },
+    {
+      "allocation_id": "alloc-1560-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1560",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 100.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Gifts",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585898"
+    },
+    {
+      "allocation_id": "alloc-1570-2025-03",
+      "source_account_id": "1000",
+      "envelope_id": "1570",
+      "envelope_type": "budget",
+      "allocation_date": "2025-03-01",
+      "amount": 100.0,
+      "period_label": "2025-03",
+      "description": "Monthly allocation for Personal Care",
+      "is_automatic": true,
+      "created_at": "2025-10-08T22:35:50.585899"
+    }
+  ],
+  "transactions": [
+    {
+      "journal_entry_id": "txn-2025-01-05",
+      "entry_number": "JE-2025-001",
+      "entry_date": "2025-01-05",
+      "description": "Whole Foods groceries (cash)",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 145.67,
+          "multiplier": -1
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 145.67,
+          "multiplier": 1,
+          "budget_envelope_id": "1500"
+        }
+      ]
+    },
+    {
+      "journal_entry_id": "txn-2025-01-08",
+      "entry_number": "JE-2025-002",
+      "entry_date": "2025-01-08",
+      "description": "Costco on Credit Card A",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 287.43,
+          "multiplier": 1,
+          "payment_envelope_id": "1600"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 287.43,
+          "multiplier": 1,
+          "budget_envelope_id": "1500"
+        }
+      ]
+    },
+    {
+      "journal_entry_id": "txn-2025-01-12",
+      "entry_number": "JE-2025-003",
+      "entry_date": "2025-01-12",
+      "description": "Restaurant dinner",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 89.5,
+          "multiplier": 1,
+          "payment_envelope_id": "1600"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 89.5,
+          "multiplier": 1,
+          "budget_envelope_id": "1510"
+        }
+      ]
+    },
+    {
+      "journal_entry_id": "txn-2025-01-15",
+      "entry_number": "JE-2025-004",
+      "entry_date": "2025-01-15",
+      "description": "Pay Credit Card A",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1000.0,
+          "multiplier": -1
+        },
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 1000.0,
+          "multiplier": -1,
+          "payment_envelope_id": "1600"
+        }
+      ]
+    },
+    {
+      "journal_entry_id": "txn-2025-01-20",
+      "entry_number": "JE-2025-005",
+      "entry_date": "2025-01-20",
+      "description": "Gas station",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 65.0,
+          "multiplier": -1
+        },
+        {
+          "account_id": "6400",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 65.0,
+          "multiplier": 1,
+          "budget_envelope_id": "1520"
+        }
+      ]
+    },
+    {
+      "journal_entry_id": "txn-2025-01-25",
+      "entry_number": "JE-2025-006",
+      "entry_date": "2025-01-25",
+      "description": "Movie tickets",
+      "distributions": [
+        {
+          "account_id": "2110",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 45.0,
+          "multiplier": 1,
+          "payment_envelope_id": "1610"
+        },
+        {
+          "account_id": "6500",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 45.0,
+          "multiplier": 1,
+          "budget_envelope_id": "1530"
+        }
+      ]
+    }
+  ],
+  "expected_balances": {
+    "as_of_date": "2025-01-31",
+    "budget_envelopes": {
+      "1500": 366.90000000000003,
+      "1510": 210.5,
+      "1520": 185.0,
+      "1530": 105.0,
+      "1540": 200.0,
+      "1550": 500.0,
+      "1560": 100.0,
+      "1570": 100.0
+    },
+    "payment_envelopes": {
+      "1600": 1876.9299999999998,
+      "1610": 1245.0,
+      "1620": 18500.0
+    },
+    "total_budget_allocated": 1767.4,
+    "total_payment_reserved": 21621.93
+  }
+}

@@ -1,0 +1,385 @@
+[
+  {
+    "recurring_entry_id": "rec-salary-biweekly",
+    "template_name": "Salary - Biweekly Paycheck",
+    "description": "Biweekly salary deposit",
+    "frequency": "biweekly",
+    "interval": 1,
+    "day_of_month": null,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-03",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "5000",
+        "account_type": "revenue",
+        "flow_direction": "from",
+        "amount": 3500.0,
+        "multiplier": 1,
+        "description": "Salary income"
+      },
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "to",
+        "amount": 3500.0,
+        "multiplier": 1,
+        "description": "Deposit to checking"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-mortgage-monthly",
+    "template_name": "Mortgage Payment",
+    "description": "Monthly mortgage payment (principal + interest)",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 1,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-01",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 1439.0,
+        "multiplier": -1,
+        "description": "Mortgage payment from checking"
+      },
+      {
+        "account_id": "2200",
+        "account_type": "liability",
+        "flow_direction": "to",
+        "amount": 766.0,
+        "multiplier": -1,
+        "description": "Mortgage principal reduction"
+      },
+      {
+        "account_id": "6000",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 673.0,
+        "multiplier": 1,
+        "description": "Mortgage interest expense (2.1% APR)"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-property-tax-quarterly",
+    "template_name": "Property Tax Payment",
+    "description": "Quarterly property tax payment",
+    "frequency": "quarterly",
+    "interval": 1,
+    "day_of_month": 15,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-15",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 1250.0,
+        "multiplier": -1,
+        "description": "Property tax payment"
+      },
+      {
+        "account_id": "6100",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 1250.0,
+        "multiplier": 1,
+        "description": "Property tax expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-home-insurance-annual",
+    "template_name": "Home Insurance Premium",
+    "description": "Annual home insurance premium",
+    "frequency": "annually",
+    "interval": 1,
+    "day_of_month": 1,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": 3,
+    "start_date": "2025-03-01",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 1800.0,
+        "multiplier": -1,
+        "description": "Home insurance payment"
+      },
+      {
+        "account_id": "6110",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 1800.0,
+        "multiplier": 1,
+        "description": "Home insurance expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-electric-monthly",
+    "template_name": "Electric Utility Bill",
+    "description": "Monthly electric utility payment",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 10,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-10",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 185.0,
+        "multiplier": -1,
+        "description": "Electric bill payment"
+      },
+      {
+        "account_id": "6200",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 185.0,
+        "multiplier": 1,
+        "description": "Electric utility expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-gas-monthly",
+    "template_name": "Gas Utility Bill",
+    "description": "Monthly gas utility payment",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 15,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-15",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 95.0,
+        "multiplier": -1,
+        "description": "Gas bill payment"
+      },
+      {
+        "account_id": "6210",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 95.0,
+        "multiplier": 1,
+        "description": "Gas utility expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-internet-monthly",
+    "template_name": "Internet & Cable Bill",
+    "description": "Monthly internet and cable payment",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 20,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-20",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 120.0,
+        "multiplier": -1,
+        "description": "Internet/cable payment"
+      },
+      {
+        "account_id": "6220",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 120.0,
+        "multiplier": 1,
+        "description": "Internet/cable expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-auto-loan-monthly",
+    "template_name": "Auto Loan Payment",
+    "description": "Monthly auto loan payment (principal + interest)",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 5,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-05",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 425.0,
+        "multiplier": -1,
+        "description": "Auto loan payment from checking"
+      },
+      {
+        "account_id": "2300",
+        "account_type": "liability",
+        "flow_direction": "to",
+        "amount": 375.0,
+        "multiplier": -1,
+        "description": "Auto loan principal reduction",
+        "payment_envelope_id": "1620"
+      },
+      {
+        "account_id": "6410",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 50.0,
+        "multiplier": 1,
+        "description": "Auto loan interest expense (3.2% APR)"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-auto-insurance-semiannual",
+    "template_name": "Auto Insurance Premium",
+    "description": "Semiannual auto insurance premium",
+    "frequency": "semiannually",
+    "interval": 1,
+    "day_of_month": 1,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-01",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 650.0,
+        "multiplier": -1,
+        "description": "Auto insurance payment"
+      },
+      {
+        "account_id": "6420",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 650.0,
+        "multiplier": 1,
+        "description": "Auto insurance expense"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-cc-a-payment-monthly",
+    "template_name": "Credit Card A - Monthly Payment",
+    "description": "Monthly payment to Credit Card A",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 25,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-25",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "1000",
+        "account_type": "asset",
+        "flow_direction": "from",
+        "amount": 500.0,
+        "multiplier": -1,
+        "description": "Payment to Credit Card A"
+      },
+      {
+        "account_id": "2100",
+        "account_type": "liability",
+        "flow_direction": "to",
+        "amount": 500.0,
+        "multiplier": -1,
+        "description": "Credit Card A payment",
+        "payment_envelope_id": "1600"
+      }
+    ]
+  },
+  {
+    "recurring_entry_id": "rec-streaming-monthly",
+    "template_name": "Streaming Services",
+    "description": "Monthly streaming service subscriptions",
+    "frequency": "monthly",
+    "interval": 1,
+    "day_of_month": 1,
+    "day_of_week": null,
+    "month_of_quarter": null,
+    "month_of_year": null,
+    "start_date": "2025-01-01",
+    "end_date": null,
+    "auto_post": true,
+    "is_active": true,
+    "distribution_template": [
+      {
+        "account_id": "2100",
+        "account_type": "liability",
+        "flow_direction": "from",
+        "amount": 45.0,
+        "multiplier": 1,
+        "description": "Streaming subscriptions charged to CC",
+        "payment_envelope_id": "1600"
+      },
+      {
+        "account_id": "6500",
+        "account_type": "expense",
+        "flow_direction": "to",
+        "amount": 45.0,
+        "multiplier": 1,
+        "description": "Entertainment - Streaming",
+        "budget_envelope_id": "1530"
+      }
+    ]
+  }
+]

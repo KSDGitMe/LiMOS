@@ -96,6 +96,32 @@ from .networth import (
     MarketData
 )
 
+from .journal_entries import (
+    AccountType,
+    FlowDirection,
+    Distribution,
+    DistributionStatus,
+    DebitCredit,
+    JournalEntry,
+    JournalEntryType,
+    JournalEntryStatus,
+    ChartOfAccounts,
+    AccountBalance,
+    AccountLedger,
+    RecurringJournalEntry
+)
+
+from .budget_envelopes import (
+    BudgetEnvelope,
+    PaymentEnvelope,
+    EnvelopeType,
+    RolloverPolicy,
+    BudgetAllocation,
+    EnvelopeTransaction,
+    BankAccountView,
+    BudgetPeriodSummary
+)
+
 __all__ = [
     # Transactions
     'Transaction',
@@ -181,5 +207,29 @@ __all__ = [
     'NetWorthGoal',
     'DebtPayoffPlan',
     'NetWorthReport',
-    'MarketData'
+    'MarketData',
+
+    # Journal Entries (Double-Entry Accounting)
+    'AccountType',
+    'FlowDirection',
+    'Distribution',
+    'DistributionStatus',
+    'DebitCredit',
+    'JournalEntry',
+    'JournalEntryType',
+    'JournalEntryStatus',
+    'ChartOfAccounts',
+    'AccountBalance',
+    'AccountLedger',
+    'RecurringJournalEntry',
+
+    # Budget Envelopes (Virtual Allocation Tracking)
+    'BudgetEnvelope',
+    'PaymentEnvelope',
+    'EnvelopeType',
+    'RolloverPolicy',
+    'BudgetAllocation',
+    'EnvelopeTransaction',
+    'BankAccountView',
+    'BudgetPeriodSummary'
 ]

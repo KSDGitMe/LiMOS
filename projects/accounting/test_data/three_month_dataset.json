@@ -1,0 +1,2539 @@
+{
+  "chart_of_accounts": [
+    {
+      "account_id": "1000",
+      "account_number": "1000",
+      "account_name": "Cash - Checking",
+      "account_type": "asset",
+      "opening_balance": 25000.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "1100",
+      "account_number": "1100",
+      "account_name": "Cash - Savings",
+      "account_type": "asset",
+      "opening_balance": 50000.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "1200",
+      "account_number": "1200",
+      "account_name": "Accounts Receivable",
+      "account_type": "asset",
+      "opening_balance": 8500.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "2000",
+      "account_number": "2000",
+      "account_name": "Accounts Payable",
+      "account_type": "liability",
+      "opening_balance": 3200.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "2100",
+      "account_number": "2100",
+      "account_name": "Credit Card Payable",
+      "account_type": "liability",
+      "opening_balance": 2500.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "2200",
+      "account_number": "2200",
+      "account_name": "Mortgage Payable - Principal",
+      "account_type": "liability",
+      "opening_balance": 385000.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "2300",
+      "account_number": "2300",
+      "account_name": "Auto Loan Payable",
+      "account_type": "liability",
+      "opening_balance": 18500.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "3000",
+      "account_number": "3000",
+      "account_name": "Owner's Equity",
+      "account_type": "equity",
+      "opening_balance": -254300.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "4000",
+      "account_number": "4000",
+      "account_name": "Salary Income",
+      "account_type": "revenue",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "4100",
+      "account_number": "4100",
+      "account_name": "Consulting Income",
+      "account_type": "revenue",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "4200",
+      "account_number": "4200",
+      "account_name": "Interest Income",
+      "account_type": "revenue",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6000",
+      "account_number": "6000",
+      "account_name": "Mortgage Interest Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6010",
+      "account_number": "6010",
+      "account_name": "Property Tax Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6020",
+      "account_number": "6020",
+      "account_name": "Home Insurance Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6100",
+      "account_number": "6100",
+      "account_name": "Electric Utility Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6110",
+      "account_number": "6110",
+      "account_name": "Gas Utility Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6120",
+      "account_number": "6120",
+      "account_name": "Water/Sewer Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6130",
+      "account_number": "6130",
+      "account_name": "Internet/Cable Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6140",
+      "account_number": "6140",
+      "account_name": "Mobile Phone Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6200",
+      "account_number": "6200",
+      "account_name": "Auto Loan Interest Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6210",
+      "account_number": "6210",
+      "account_name": "Auto Insurance Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6220",
+      "account_number": "6220",
+      "account_name": "Auto Fuel Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6300",
+      "account_number": "6300",
+      "account_name": "Groceries Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6310",
+      "account_number": "6310",
+      "account_name": "Dining Out Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6400",
+      "account_number": "6400",
+      "account_name": "Streaming Services Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6410",
+      "account_number": "6410",
+      "account_name": "Gym Membership Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    },
+    {
+      "account_id": "6500",
+      "account_number": "6500",
+      "account_name": "Medical Expense",
+      "account_type": "expense",
+      "opening_balance": 0.0,
+      "opening_balance_date": "2025-01-01"
+    }
+  ],
+  "transactions": [
+    {
+      "journal_entry_id": "je-recur-1000",
+      "entry_number": "JE-2025-0001",
+      "entry_type": "standard",
+      "entry_date": "2025-01-01",
+      "posting_date": "2025-01-01",
+      "description": "Monthly Mortgage Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1439.0,
+          "multiplier": -1,
+          "description": "Mortgage payment"
+        },
+        {
+          "account_id": "2200",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 766.0,
+          "multiplier": -1,
+          "description": "Principal payment"
+        },
+        {
+          "account_id": "6000",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 673.0,
+          "multiplier": 1,
+          "description": "Interest expense (2.1% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.523810",
+      "updated_at": "2025-10-08T17:56:18.524004"
+    },
+    {
+      "journal_entry_id": "je-recur-1024",
+      "entry_number": "JE-2025-0002",
+      "entry_type": "standard",
+      "entry_date": "2025-01-01",
+      "posting_date": "2025-01-01",
+      "description": "Streaming Services",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services (credit card)"
+        },
+        {
+          "account_id": "6400",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524150",
+      "updated_at": "2025-10-08T17:56:18.524151"
+    },
+    {
+      "journal_entry_id": "je-recur-1027",
+      "entry_number": "JE-2025-0003",
+      "entry_type": "standard",
+      "entry_date": "2025-01-01",
+      "posting_date": "2025-01-01",
+      "description": "Gym Membership",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership (credit card)"
+        },
+        {
+          "account_id": "6410",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524163",
+      "updated_at": "2025-10-08T17:56:18.524164"
+    },
+    {
+      "journal_entry_id": "je-recur-1030",
+      "entry_number": "JE-2025-0004",
+      "entry_type": "standard",
+      "entry_date": "2025-01-01",
+      "posting_date": "2025-01-01",
+      "description": "Savings Interest",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "4200",
+          "account_type": "revenue",
+          "flow_direction": "from",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Savings interest earned"
+        },
+        {
+          "account_id": "1100",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Interest deposited"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524177",
+      "updated_at": "2025-10-08T17:56:18.524177"
+    },
+    {
+      "journal_entry_id": "je-recur-1020",
+      "entry_number": "JE-2025-0005",
+      "entry_type": "standard",
+      "entry_date": "2025-01-03",
+      "posting_date": "2025-01-03",
+      "description": "Auto Loan Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 345.0,
+          "multiplier": -1,
+          "description": "Auto loan payment"
+        },
+        {
+          "account_id": "2300",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 276.0,
+          "multiplier": -1,
+          "description": "Auto loan principal"
+        },
+        {
+          "account_id": "6200",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 69.0,
+          "multiplier": 1,
+          "description": "Auto loan interest (4.5% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524130",
+      "updated_at": "2025-10-08T17:56:18.524131"
+    },
+    {
+      "journal_entry_id": "je-onetime-2000",
+      "entry_number": "JE-2025-0006",
+      "entry_type": "standard",
+      "entry_date": "2025-01-03",
+      "posting_date": "2025-01-03",
+      "description": "Grocery shopping - Whole Foods",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 245.67,
+          "multiplier": -1,
+          "description": "Grocery shopping - Whole Foods"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 245.67,
+          "multiplier": 1,
+          "description": "Grocery shopping - Whole Foods"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524206",
+      "updated_at": "2025-10-08T17:56:18.524212"
+    },
+    {
+      "journal_entry_id": "je-recur-1004",
+      "entry_number": "JE-2025-0007",
+      "entry_type": "standard",
+      "entry_date": "2025-01-05",
+      "posting_date": "2025-01-05",
+      "description": "Home Insurance Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1800.0,
+          "multiplier": -1,
+          "description": "Home insurance payment"
+        },
+        {
+          "account_id": "6020",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 1800.0,
+          "multiplier": 1,
+          "description": "Home insurance expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524053",
+      "updated_at": "2025-10-08T17:56:18.524054"
+    },
+    {
+      "journal_entry_id": "je-recur-1014",
+      "entry_number": "JE-2025-0008",
+      "entry_type": "standard",
+      "entry_date": "2025-01-05",
+      "posting_date": "2025-01-05",
+      "description": "Internet/Cable Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable (credit card)"
+        },
+        {
+          "account_id": "6130",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524104",
+      "updated_at": "2025-10-08T17:56:18.524105"
+    },
+    {
+      "journal_entry_id": "je-onetime-2001",
+      "entry_number": "JE-2025-0009",
+      "entry_type": "standard",
+      "entry_date": "2025-01-07",
+      "posting_date": "2025-01-07",
+      "description": "Gas station - Shell",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 52.0,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 52.0,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524217",
+      "updated_at": "2025-10-08T17:56:18.524219"
+    },
+    {
+      "journal_entry_id": "je-recur-1011",
+      "entry_number": "JE-2025-0010",
+      "entry_type": "standard",
+      "entry_date": "2025-01-08",
+      "posting_date": "2025-01-08",
+      "description": "Water/Sewer Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 78.0,
+          "multiplier": -1,
+          "description": "Water/Sewer payment"
+        },
+        {
+          "account_id": "6120",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 78.0,
+          "multiplier": 1,
+          "description": "Water/Sewer expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524089",
+      "updated_at": "2025-10-08T17:56:18.524090"
+    },
+    {
+      "journal_entry_id": "je-onetime-2019",
+      "entry_number": "JE-2025-0011",
+      "entry_type": "standard",
+      "entry_date": "2025-01-08",
+      "posting_date": "2025-01-08",
+      "description": "Amazon - Office supplies",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 127.45,
+          "multiplier": 1,
+          "description": "Amazon - Office supplies"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 127.45,
+          "multiplier": 1,
+          "description": "Amazon - Office supplies"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524283",
+      "updated_at": "2025-10-08T17:56:18.524284"
+    },
+    {
+      "journal_entry_id": "je-recur-1005",
+      "entry_number": "JE-2025-0012",
+      "entry_type": "standard",
+      "entry_date": "2025-01-10",
+      "posting_date": "2025-01-10",
+      "description": "Electric Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 185.0,
+          "multiplier": -1,
+          "description": "Electric bill payment"
+        },
+        {
+          "account_id": "6100",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 185.0,
+          "multiplier": 1,
+          "description": "Electric expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524060",
+      "updated_at": "2025-10-08T17:56:18.524061"
+    },
+    {
+      "journal_entry_id": "je-onetime-2020",
+      "entry_number": "JE-2025-0013",
+      "entry_type": "standard",
+      "entry_date": "2025-01-11",
+      "posting_date": "2025-01-11",
+      "description": "Coffee shop - Morning latte",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 6.75,
+          "multiplier": -1,
+          "description": "Coffee shop - Morning latte"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 6.75,
+          "multiplier": 1,
+          "description": "Coffee shop - Morning latte"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524286",
+      "updated_at": "2025-10-08T17:56:18.524287"
+    },
+    {
+      "journal_entry_id": "je-recur-1008",
+      "entry_number": "JE-2025-0014",
+      "entry_type": "standard",
+      "entry_date": "2025-01-12",
+      "posting_date": "2025-01-12",
+      "description": "Gas Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 125.0,
+          "multiplier": -1,
+          "description": "Gas bill payment"
+        },
+        {
+          "account_id": "6110",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 125.0,
+          "multiplier": 1,
+          "description": "Gas expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524075",
+      "updated_at": "2025-10-08T17:56:18.524076"
+    },
+    {
+      "journal_entry_id": "je-onetime-2002",
+      "entry_number": "JE-2025-0015",
+      "entry_type": "standard",
+      "entry_date": "2025-01-12",
+      "posting_date": "2025-01-12",
+      "description": "Dining - Italian Restaurant",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 87.5,
+          "multiplier": 1,
+          "description": "Dining - Italian Restaurant"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 87.5,
+          "multiplier": 1,
+          "description": "Dining - Italian Restaurant"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524222",
+      "updated_at": "2025-10-08T17:56:18.524224"
+    },
+    {
+      "journal_entry_id": "je-onetime-2021",
+      "entry_number": "JE-2025-0016",
+      "entry_type": "standard",
+      "entry_date": "2025-01-14",
+      "posting_date": "2025-01-14",
+      "description": "Target - Household items",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 89.32,
+          "multiplier": 1,
+          "description": "Target - Household items"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 89.32,
+          "multiplier": 1,
+          "description": "Target - Household items"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524289",
+      "updated_at": "2025-10-08T17:56:18.524290"
+    },
+    {
+      "journal_entry_id": "je-recur-1003",
+      "entry_number": "JE-2025-0017",
+      "entry_type": "standard",
+      "entry_date": "2025-01-15",
+      "posting_date": "2025-01-15",
+      "description": "Property Tax Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 3000.0,
+          "multiplier": -1,
+          "description": "Property tax payment"
+        },
+        {
+          "account_id": "6010",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 3000.0,
+          "multiplier": 1,
+          "description": "Property tax expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524045",
+      "updated_at": "2025-10-08T17:56:18.524046"
+    },
+    {
+      "journal_entry_id": "je-onetime-2003",
+      "entry_number": "JE-2025-0018",
+      "entry_type": "standard",
+      "entry_date": "2025-01-16",
+      "posting_date": "2025-01-16",
+      "description": "Grocery shopping - Trader Joe's",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 189.34,
+          "multiplier": -1,
+          "description": "Grocery shopping - Trader Joe's"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 189.34,
+          "multiplier": 1,
+          "description": "Grocery shopping - Trader Joe's"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524226",
+      "updated_at": "2025-10-08T17:56:18.524227"
+    },
+    {
+      "journal_entry_id": "je-onetime-2022",
+      "entry_number": "JE-2025-0019",
+      "entry_type": "standard",
+      "entry_date": "2025-01-17",
+      "posting_date": "2025-01-17",
+      "description": "Pharmacy - Prescription medication",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 25.0,
+          "multiplier": -1,
+          "description": "Pharmacy - Prescription medication"
+        },
+        {
+          "account_id": "6500",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 25.0,
+          "multiplier": 1,
+          "description": "Pharmacy - Prescription medication"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524293",
+      "updated_at": "2025-10-08T17:56:18.524294"
+    },
+    {
+      "journal_entry_id": "je-recur-1017",
+      "entry_number": "JE-2025-0020",
+      "entry_type": "standard",
+      "entry_date": "2025-01-18",
+      "posting_date": "2025-01-18",
+      "description": "Mobile Phone Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone (credit card)"
+        },
+        {
+          "account_id": "6140",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524117",
+      "updated_at": "2025-10-08T17:56:18.524118"
+    },
+    {
+      "journal_entry_id": "je-onetime-2023",
+      "entry_number": "JE-2025-0021",
+      "entry_type": "standard",
+      "entry_date": "2025-01-19",
+      "posting_date": "2025-01-19",
+      "description": "Gas station - Exxon",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 58.9,
+          "multiplier": 1,
+          "description": "Gas station - Exxon"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 58.9,
+          "multiplier": 1,
+          "description": "Gas station - Exxon"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524296",
+      "updated_at": "2025-10-08T17:56:18.524297"
+    },
+    {
+      "journal_entry_id": "je-recur-1023",
+      "entry_number": "JE-2025-0022",
+      "entry_type": "standard",
+      "entry_date": "2025-01-20",
+      "posting_date": "2025-01-20",
+      "description": "Auto Insurance",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 300.0,
+          "multiplier": -1,
+          "description": "Auto insurance payment"
+        },
+        {
+          "account_id": "6210",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 300.0,
+          "multiplier": 1,
+          "description": "Auto insurance expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524144",
+      "updated_at": "2025-10-08T17:56:18.524145"
+    },
+    {
+      "journal_entry_id": "je-onetime-2024",
+      "entry_number": "JE-2025-0023",
+      "entry_type": "standard",
+      "entry_date": "2025-01-21",
+      "posting_date": "2025-01-21",
+      "description": "Home Depot - Light fixtures",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 215.67,
+          "multiplier": 1,
+          "description": "Home Depot - Light fixtures"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 215.67,
+          "multiplier": 1,
+          "description": "Home Depot - Light fixtures"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524299",
+      "updated_at": "2025-10-08T17:56:18.524300"
+    },
+    {
+      "journal_entry_id": "je-onetime-2004",
+      "entry_number": "JE-2025-0024",
+      "entry_type": "standard",
+      "entry_date": "2025-01-22",
+      "posting_date": "2025-01-22",
+      "description": "Consulting invoice payment received",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1200",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 2500.0,
+          "multiplier": -1,
+          "description": "Consulting invoice payment received"
+        },
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 2500.0,
+          "multiplier": 1,
+          "description": "Consulting invoice payment received"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524230",
+      "updated_at": "2025-10-08T17:56:18.524231"
+    },
+    {
+      "journal_entry_id": "je-onetime-2025",
+      "entry_number": "JE-2025-0025",
+      "entry_type": "standard",
+      "entry_date": "2025-01-24",
+      "posting_date": "2025-01-24",
+      "description": "Chipotle - Lunch",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 14.5,
+          "multiplier": -1,
+          "description": "Chipotle - Lunch"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 14.5,
+          "multiplier": 1,
+          "description": "Chipotle - Lunch"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524303",
+      "updated_at": "2025-10-08T17:56:18.524304"
+    },
+    {
+      "journal_entry_id": "je-onetime-2005",
+      "entry_number": "JE-2025-0026",
+      "entry_type": "standard",
+      "entry_date": "2025-01-25",
+      "posting_date": "2025-01-25",
+      "description": "Medical co-pay - Doctor visit",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 35.0,
+          "multiplier": -1,
+          "description": "Medical co-pay - Doctor visit"
+        },
+        {
+          "account_id": "6500",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 35.0,
+          "multiplier": 1,
+          "description": "Medical co-pay - Doctor visit"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524235",
+      "updated_at": "2025-10-08T17:56:18.524236"
+    },
+    {
+      "journal_entry_id": "je-onetime-2026",
+      "entry_number": "JE-2025-0027",
+      "entry_type": "standard",
+      "entry_date": "2025-01-27",
+      "posting_date": "2025-01-27",
+      "description": "Dry cleaning services",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 42.0,
+          "multiplier": -1,
+          "description": "Dry cleaning services"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 42.0,
+          "multiplier": 1,
+          "description": "Dry cleaning services"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524306",
+      "updated_at": "2025-10-08T17:56:18.524307"
+    },
+    {
+      "journal_entry_id": "je-onetime-2006",
+      "entry_number": "JE-2025-0028",
+      "entry_type": "standard",
+      "entry_date": "2025-01-28",
+      "posting_date": "2025-01-28",
+      "description": "Pay off credit card balance",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1500.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        },
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 1500.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524239",
+      "updated_at": "2025-10-08T17:56:18.524240"
+    },
+    {
+      "journal_entry_id": "je-onetime-2027",
+      "entry_number": "JE-2025-0029",
+      "entry_type": "standard",
+      "entry_date": "2025-01-29",
+      "posting_date": "2025-01-29",
+      "description": "Book purchase - Amazon",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 32.99,
+          "multiplier": 1,
+          "description": "Book purchase - Amazon"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 32.99,
+          "multiplier": 1,
+          "description": "Book purchase - Amazon"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524309",
+      "updated_at": "2025-10-08T17:56:18.524310"
+    },
+    {
+      "journal_entry_id": "je-recur-1001",
+      "entry_number": "JE-2025-0030",
+      "entry_type": "standard",
+      "entry_date": "2025-02-01",
+      "posting_date": "2025-02-01",
+      "description": "Monthly Mortgage Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1439.0,
+          "multiplier": -1,
+          "description": "Mortgage payment"
+        },
+        {
+          "account_id": "2200",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 766.0,
+          "multiplier": -1,
+          "description": "Principal payment"
+        },
+        {
+          "account_id": "6000",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 673.0,
+          "multiplier": 1,
+          "description": "Interest expense (2.1% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524027",
+      "updated_at": "2025-10-08T17:56:18.524029"
+    },
+    {
+      "journal_entry_id": "je-recur-1025",
+      "entry_number": "JE-2025-0031",
+      "entry_type": "standard",
+      "entry_date": "2025-02-01",
+      "posting_date": "2025-02-01",
+      "description": "Streaming Services",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services (credit card)"
+        },
+        {
+          "account_id": "6400",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524154",
+      "updated_at": "2025-10-08T17:56:18.524155"
+    },
+    {
+      "journal_entry_id": "je-recur-1028",
+      "entry_number": "JE-2025-0032",
+      "entry_type": "standard",
+      "entry_date": "2025-02-01",
+      "posting_date": "2025-02-01",
+      "description": "Gym Membership",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership (credit card)"
+        },
+        {
+          "account_id": "6410",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524167",
+      "updated_at": "2025-10-08T17:56:18.524168"
+    },
+    {
+      "journal_entry_id": "je-recur-1031",
+      "entry_number": "JE-2025-0033",
+      "entry_type": "standard",
+      "entry_date": "2025-02-01",
+      "posting_date": "2025-02-01",
+      "description": "Savings Interest",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "4200",
+          "account_type": "revenue",
+          "flow_direction": "from",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Savings interest earned"
+        },
+        {
+          "account_id": "1100",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Interest deposited"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524181",
+      "updated_at": "2025-10-08T17:56:18.524182"
+    },
+    {
+      "journal_entry_id": "je-onetime-2028",
+      "entry_number": "JE-2025-0034",
+      "entry_type": "standard",
+      "entry_date": "2025-02-02",
+      "posting_date": "2025-02-02",
+      "description": "Pet store - Dog food and supplies",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 78.45,
+          "multiplier": -1,
+          "description": "Pet store - Dog food and supplies"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 78.45,
+          "multiplier": 1,
+          "description": "Pet store - Dog food and supplies"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524313",
+      "updated_at": "2025-10-08T17:56:18.524313"
+    },
+    {
+      "journal_entry_id": "je-recur-1021",
+      "entry_number": "JE-2025-0035",
+      "entry_type": "standard",
+      "entry_date": "2025-02-03",
+      "posting_date": "2025-02-03",
+      "description": "Auto Loan Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 345.0,
+          "multiplier": -1,
+          "description": "Auto loan payment"
+        },
+        {
+          "account_id": "2300",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 276.0,
+          "multiplier": -1,
+          "description": "Auto loan principal"
+        },
+        {
+          "account_id": "6200",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 69.0,
+          "multiplier": 1,
+          "description": "Auto loan interest (4.5% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524135",
+      "updated_at": "2025-10-08T17:56:18.524136"
+    },
+    {
+      "journal_entry_id": "je-onetime-2007",
+      "entry_number": "JE-2025-0036",
+      "entry_type": "standard",
+      "entry_date": "2025-02-04",
+      "posting_date": "2025-02-04",
+      "description": "Grocery shopping - Whole Foods",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 267.89,
+          "multiplier": -1,
+          "description": "Grocery shopping - Whole Foods"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 267.89,
+          "multiplier": 1,
+          "description": "Grocery shopping - Whole Foods"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524242",
+      "updated_at": "2025-10-08T17:56:18.524243"
+    },
+    {
+      "journal_entry_id": "je-recur-1015",
+      "entry_number": "JE-2025-0037",
+      "entry_type": "standard",
+      "entry_date": "2025-02-05",
+      "posting_date": "2025-02-05",
+      "description": "Internet/Cable Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable (credit card)"
+        },
+        {
+          "account_id": "6130",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524108",
+      "updated_at": "2025-10-08T17:56:18.524109"
+    },
+    {
+      "journal_entry_id": "je-onetime-2029",
+      "entry_number": "JE-2025-0038",
+      "entry_type": "standard",
+      "entry_date": "2025-02-06",
+      "posting_date": "2025-02-06",
+      "description": "Starbucks - Coffee meeting",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 12.8,
+          "multiplier": 1,
+          "description": "Starbucks - Coffee meeting"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 12.8,
+          "multiplier": 1,
+          "description": "Starbucks - Coffee meeting"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524316",
+      "updated_at": "2025-10-08T17:56:18.524317"
+    },
+    {
+      "journal_entry_id": "je-recur-1012",
+      "entry_number": "JE-2025-0039",
+      "entry_type": "standard",
+      "entry_date": "2025-02-08",
+      "posting_date": "2025-02-08",
+      "description": "Water/Sewer Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 78.0,
+          "multiplier": -1,
+          "description": "Water/Sewer payment"
+        },
+        {
+          "account_id": "6120",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 78.0,
+          "multiplier": 1,
+          "description": "Water/Sewer expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524093",
+      "updated_at": "2025-10-08T17:56:18.524094"
+    },
+    {
+      "journal_entry_id": "je-onetime-2030",
+      "entry_number": "JE-2025-0040",
+      "entry_type": "standard",
+      "entry_date": "2025-02-08",
+      "posting_date": "2025-02-08",
+      "description": "Dentist - Cleaning appointment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 125.0,
+          "multiplier": -1,
+          "description": "Dentist - Cleaning appointment"
+        },
+        {
+          "account_id": "6500",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 125.0,
+          "multiplier": 1,
+          "description": "Dentist - Cleaning appointment"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524319",
+      "updated_at": "2025-10-08T17:56:18.524320"
+    },
+    {
+      "journal_entry_id": "je-onetime-2008",
+      "entry_number": "JE-2025-0041",
+      "entry_type": "standard",
+      "entry_date": "2025-02-09",
+      "posting_date": "2025-02-09",
+      "description": "Gas station - Chevron",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 48.75,
+          "multiplier": 1,
+          "description": "Gas station - Chevron"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 48.75,
+          "multiplier": 1,
+          "description": "Gas station - Chevron"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524246",
+      "updated_at": "2025-10-08T17:56:18.524247"
+    },
+    {
+      "journal_entry_id": "je-recur-1006",
+      "entry_number": "JE-2025-0042",
+      "entry_type": "standard",
+      "entry_date": "2025-02-10",
+      "posting_date": "2025-02-10",
+      "description": "Electric Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 195.0,
+          "multiplier": -1,
+          "description": "Electric bill payment"
+        },
+        {
+          "account_id": "6100",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 195.0,
+          "multiplier": 1,
+          "description": "Electric expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524065",
+      "updated_at": "2025-10-08T17:56:18.524066"
+    },
+    {
+      "journal_entry_id": "je-onetime-2031",
+      "entry_number": "JE-2025-0043",
+      "entry_type": "standard",
+      "entry_date": "2025-02-11",
+      "posting_date": "2025-02-11",
+      "description": "Gas station - Shell",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 51.25,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 51.25,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524323",
+      "updated_at": "2025-10-08T17:56:18.524324"
+    },
+    {
+      "journal_entry_id": "je-recur-1009",
+      "entry_number": "JE-2025-0044",
+      "entry_type": "standard",
+      "entry_date": "2025-02-12",
+      "posting_date": "2025-02-12",
+      "description": "Gas Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 115.0,
+          "multiplier": -1,
+          "description": "Gas bill payment"
+        },
+        {
+          "account_id": "6110",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 115.0,
+          "multiplier": 1,
+          "description": "Gas expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524080",
+      "updated_at": "2025-10-08T17:56:18.524081"
+    },
+    {
+      "journal_entry_id": "je-onetime-2032",
+      "entry_number": "JE-2025-0045",
+      "entry_type": "standard",
+      "entry_date": "2025-02-13",
+      "posting_date": "2025-02-13",
+      "description": "Flowers for Valentine's Day",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 65.0,
+          "multiplier": -1,
+          "description": "Flowers for Valentine's Day"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 65.0,
+          "multiplier": 1,
+          "description": "Flowers for Valentine's Day"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524327",
+      "updated_at": "2025-10-08T17:56:18.524328"
+    },
+    {
+      "journal_entry_id": "je-onetime-2009",
+      "entry_number": "JE-2025-0046",
+      "entry_type": "standard",
+      "entry_date": "2025-02-14",
+      "posting_date": "2025-02-14",
+      "description": "Valentine's dinner",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 156.0,
+          "multiplier": 1,
+          "description": "Valentine's dinner"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 156.0,
+          "multiplier": 1,
+          "description": "Valentine's dinner"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524249",
+      "updated_at": "2025-10-08T17:56:18.524250"
+    },
+    {
+      "journal_entry_id": "je-onetime-2033",
+      "entry_number": "JE-2025-0047",
+      "entry_type": "standard",
+      "entry_date": "2025-02-16",
+      "posting_date": "2025-02-16",
+      "description": "Movie theater - Date night",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 38.0,
+          "multiplier": 1,
+          "description": "Movie theater - Date night"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 38.0,
+          "multiplier": 1,
+          "description": "Movie theater - Date night"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524330",
+      "updated_at": "2025-10-08T17:56:18.524331"
+    },
+    {
+      "journal_entry_id": "je-recur-1018",
+      "entry_number": "JE-2025-0048",
+      "entry_type": "standard",
+      "entry_date": "2025-02-18",
+      "posting_date": "2025-02-18",
+      "description": "Mobile Phone Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone (credit card)"
+        },
+        {
+          "account_id": "6140",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524121",
+      "updated_at": "2025-10-08T17:56:18.524122"
+    },
+    {
+      "journal_entry_id": "je-onetime-2010",
+      "entry_number": "JE-2025-0049",
+      "entry_type": "standard",
+      "entry_date": "2025-02-18",
+      "posting_date": "2025-02-18",
+      "description": "Grocery shopping - Costco",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 342.15,
+          "multiplier": -1,
+          "description": "Grocery shopping - Costco"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 342.15,
+          "multiplier": 1,
+          "description": "Grocery shopping - Costco"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524253",
+      "updated_at": "2025-10-08T17:56:18.524254"
+    },
+    {
+      "journal_entry_id": "je-onetime-2034",
+      "entry_number": "JE-2025-0050",
+      "entry_type": "standard",
+      "entry_date": "2025-02-19",
+      "posting_date": "2025-02-19",
+      "description": "Consulting invoice sent",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "4100",
+          "account_type": "revenue",
+          "flow_direction": "from",
+          "amount": 2800.0,
+          "multiplier": 1,
+          "description": "Consulting invoice sent"
+        },
+        {
+          "account_id": "1200",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 2800.0,
+          "multiplier": 1,
+          "description": "Consulting invoice sent"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524333",
+      "updated_at": "2025-10-08T17:56:18.524334"
+    },
+    {
+      "journal_entry_id": "je-onetime-2011",
+      "entry_number": "JE-2025-0051",
+      "entry_type": "standard",
+      "entry_date": "2025-02-20",
+      "posting_date": "2025-02-20",
+      "description": "Consulting project completed - invoice",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "4100",
+          "account_type": "revenue",
+          "flow_direction": "from",
+          "amount": 3500.0,
+          "multiplier": 1,
+          "description": "Consulting project completed - invoice"
+        },
+        {
+          "account_id": "1200",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 3500.0,
+          "multiplier": 1,
+          "description": "Consulting project completed - invoice"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524257",
+      "updated_at": "2025-10-08T17:56:18.524257"
+    },
+    {
+      "journal_entry_id": "je-onetime-2035",
+      "entry_number": "JE-2025-0052",
+      "entry_type": "standard",
+      "entry_date": "2025-02-22",
+      "posting_date": "2025-02-22",
+      "description": "Hardware store - Paint supplies",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 156.89,
+          "multiplier": 1,
+          "description": "Hardware store - Paint supplies"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 156.89,
+          "multiplier": 1,
+          "description": "Hardware store - Paint supplies"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524337",
+      "updated_at": "2025-10-08T17:56:18.524338"
+    },
+    {
+      "journal_entry_id": "je-onetime-2012",
+      "entry_number": "JE-2025-0053",
+      "entry_type": "standard",
+      "entry_date": "2025-02-25",
+      "posting_date": "2025-02-25",
+      "description": "Pay off credit card balance",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1200.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        },
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 1200.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524260",
+      "updated_at": "2025-10-08T17:56:18.524261"
+    },
+    {
+      "journal_entry_id": "je-onetime-2036",
+      "entry_number": "JE-2025-0054",
+      "entry_type": "standard",
+      "entry_date": "2025-02-27",
+      "posting_date": "2025-02-27",
+      "description": "Uber rides - Business meeting",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 42.5,
+          "multiplier": -1,
+          "description": "Uber rides - Business meeting"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 42.5,
+          "multiplier": 1,
+          "description": "Uber rides - Business meeting"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524340",
+      "updated_at": "2025-10-08T17:56:18.524341"
+    },
+    {
+      "journal_entry_id": "je-recur-1002",
+      "entry_number": "JE-2025-0055",
+      "entry_type": "standard",
+      "entry_date": "2025-03-01",
+      "posting_date": "2025-03-01",
+      "description": "Monthly Mortgage Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1439.0,
+          "multiplier": -1,
+          "description": "Mortgage payment"
+        },
+        {
+          "account_id": "2200",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 766.0,
+          "multiplier": -1,
+          "description": "Principal payment"
+        },
+        {
+          "account_id": "6000",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 673.0,
+          "multiplier": 1,
+          "description": "Interest expense (2.1% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524037",
+      "updated_at": "2025-10-08T17:56:18.524039"
+    },
+    {
+      "journal_entry_id": "je-recur-1026",
+      "entry_number": "JE-2025-0056",
+      "entry_type": "standard",
+      "entry_date": "2025-03-01",
+      "posting_date": "2025-03-01",
+      "description": "Streaming Services",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services (credit card)"
+        },
+        {
+          "account_id": "6400",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 45.98,
+          "multiplier": 1,
+          "description": "Streaming services expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524158",
+      "updated_at": "2025-10-08T17:56:18.524159"
+    },
+    {
+      "journal_entry_id": "je-recur-1029",
+      "entry_number": "JE-2025-0057",
+      "entry_type": "standard",
+      "entry_date": "2025-03-01",
+      "posting_date": "2025-03-01",
+      "description": "Gym Membership",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership (credit card)"
+        },
+        {
+          "account_id": "6410",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 59.99,
+          "multiplier": 1,
+          "description": "Gym membership expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524171",
+      "updated_at": "2025-10-08T17:56:18.524172"
+    },
+    {
+      "journal_entry_id": "je-recur-1032",
+      "entry_number": "JE-2025-0058",
+      "entry_type": "standard",
+      "entry_date": "2025-03-01",
+      "posting_date": "2025-03-01",
+      "description": "Savings Interest",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "4200",
+          "account_type": "revenue",
+          "flow_direction": "from",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Savings interest earned"
+        },
+        {
+          "account_id": "1100",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 20.83,
+          "multiplier": 1,
+          "description": "Interest deposited"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524185",
+      "updated_at": "2025-10-08T17:56:18.524187"
+    },
+    {
+      "journal_entry_id": "je-onetime-2037",
+      "entry_number": "JE-2025-0059",
+      "entry_type": "standard",
+      "entry_date": "2025-03-02",
+      "posting_date": "2025-03-02",
+      "description": "Haircut and styling",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 55.0,
+          "multiplier": -1,
+          "description": "Haircut and styling"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 55.0,
+          "multiplier": 1,
+          "description": "Haircut and styling"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524343",
+      "updated_at": "2025-10-08T17:56:18.524344"
+    },
+    {
+      "journal_entry_id": "je-recur-1022",
+      "entry_number": "JE-2025-0060",
+      "entry_type": "standard",
+      "entry_date": "2025-03-03",
+      "posting_date": "2025-03-03",
+      "description": "Auto Loan Payment",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 345.0,
+          "multiplier": -1,
+          "description": "Auto loan payment"
+        },
+        {
+          "account_id": "2300",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 276.0,
+          "multiplier": -1,
+          "description": "Auto loan principal"
+        },
+        {
+          "account_id": "6200",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 69.0,
+          "multiplier": 1,
+          "description": "Auto loan interest (4.5% APR)"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524140",
+      "updated_at": "2025-10-08T17:56:18.524141"
+    },
+    {
+      "journal_entry_id": "je-recur-1016",
+      "entry_number": "JE-2025-0061",
+      "entry_type": "standard",
+      "entry_date": "2025-03-05",
+      "posting_date": "2025-03-05",
+      "description": "Internet/Cable Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable (credit card)"
+        },
+        {
+          "account_id": "6130",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 129.99,
+          "multiplier": 1,
+          "description": "Internet/Cable expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524112",
+      "updated_at": "2025-10-08T17:56:18.524113"
+    },
+    {
+      "journal_entry_id": "je-onetime-2013",
+      "entry_number": "JE-2025-0062",
+      "entry_type": "standard",
+      "entry_date": "2025-03-05",
+      "posting_date": "2025-03-05",
+      "description": "Grocery shopping - Whole Foods",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 223.45,
+          "multiplier": -1,
+          "description": "Grocery shopping - Whole Foods"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 223.45,
+          "multiplier": 1,
+          "description": "Grocery shopping - Whole Foods"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524263",
+      "updated_at": "2025-10-08T17:56:18.524264"
+    },
+    {
+      "journal_entry_id": "je-onetime-2038",
+      "entry_number": "JE-2025-0063",
+      "entry_type": "standard",
+      "entry_date": "2025-03-06",
+      "posting_date": "2025-03-06",
+      "description": "Farmers market - Fresh produce",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 47.8,
+          "multiplier": -1,
+          "description": "Farmers market - Fresh produce"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 47.8,
+          "multiplier": 1,
+          "description": "Farmers market - Fresh produce"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524346",
+      "updated_at": "2025-10-08T17:56:18.524347"
+    },
+    {
+      "journal_entry_id": "je-recur-1013",
+      "entry_number": "JE-2025-0064",
+      "entry_type": "standard",
+      "entry_date": "2025-03-08",
+      "posting_date": "2025-03-08",
+      "description": "Water/Sewer Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 78.0,
+          "multiplier": -1,
+          "description": "Water/Sewer payment"
+        },
+        {
+          "account_id": "6120",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 78.0,
+          "multiplier": 1,
+          "description": "Water/Sewer expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524099",
+      "updated_at": "2025-10-08T17:56:18.524100"
+    },
+    {
+      "journal_entry_id": "je-onetime-2039",
+      "entry_number": "JE-2025-0065",
+      "entry_type": "standard",
+      "entry_date": "2025-03-09",
+      "posting_date": "2025-03-09",
+      "description": "Gas station - BP",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 49.6,
+          "multiplier": 1,
+          "description": "Gas station - BP"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 49.6,
+          "multiplier": 1,
+          "description": "Gas station - BP"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524350",
+      "updated_at": "2025-10-08T17:56:18.524351"
+    },
+    {
+      "journal_entry_id": "je-recur-1007",
+      "entry_number": "JE-2025-0066",
+      "entry_type": "standard",
+      "entry_date": "2025-03-10",
+      "posting_date": "2025-03-10",
+      "description": "Electric Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 175.0,
+          "multiplier": -1,
+          "description": "Electric bill payment"
+        },
+        {
+          "account_id": "6100",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 175.0,
+          "multiplier": 1,
+          "description": "Electric expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524070",
+      "updated_at": "2025-10-08T17:56:18.524071"
+    },
+    {
+      "journal_entry_id": "je-onetime-2014",
+      "entry_number": "JE-2025-0067",
+      "entry_type": "standard",
+      "entry_date": "2025-03-10",
+      "posting_date": "2025-03-10",
+      "description": "Gas station - Shell",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 55.3,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 55.3,
+          "multiplier": 1,
+          "description": "Gas station - Shell"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524266",
+      "updated_at": "2025-10-08T17:56:18.524267"
+    },
+    {
+      "journal_entry_id": "je-recur-1010",
+      "entry_number": "JE-2025-0068",
+      "entry_type": "standard",
+      "entry_date": "2025-03-12",
+      "posting_date": "2025-03-12",
+      "description": "Gas Bill",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 95.0,
+          "multiplier": -1,
+          "description": "Gas bill payment"
+        },
+        {
+          "account_id": "6110",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 95.0,
+          "multiplier": 1,
+          "description": "Gas expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524084",
+      "updated_at": "2025-10-08T17:56:18.524085"
+    },
+    {
+      "journal_entry_id": "je-onetime-2040",
+      "entry_number": "JE-2025-0069",
+      "entry_type": "standard",
+      "entry_date": "2025-03-12",
+      "posting_date": "2025-03-12",
+      "description": "Office Max - Printer ink",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 67.99,
+          "multiplier": 1,
+          "description": "Office Max - Printer ink"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 67.99,
+          "multiplier": 1,
+          "description": "Office Max - Printer ink"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524353",
+      "updated_at": "2025-10-08T17:56:18.524354"
+    },
+    {
+      "journal_entry_id": "je-onetime-2015",
+      "entry_number": "JE-2025-0070",
+      "entry_type": "standard",
+      "entry_date": "2025-03-15",
+      "posting_date": "2025-03-15",
+      "description": "Consulting payment received",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1200",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 3500.0,
+          "multiplier": -1,
+          "description": "Consulting payment received"
+        },
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "to",
+          "amount": 3500.0,
+          "multiplier": 1,
+          "description": "Consulting payment received"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524270",
+      "updated_at": "2025-10-08T17:56:18.524271"
+    },
+    {
+      "journal_entry_id": "je-onetime-2041",
+      "entry_number": "JE-2025-0071",
+      "entry_type": "standard",
+      "entry_date": "2025-03-17",
+      "posting_date": "2025-03-17",
+      "description": "St. Patrick's Day dinner",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 95.75,
+          "multiplier": -1,
+          "description": "St. Patrick's Day dinner"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 95.75,
+          "multiplier": 1,
+          "description": "St. Patrick's Day dinner"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524356",
+      "updated_at": "2025-10-08T17:56:18.524357"
+    },
+    {
+      "journal_entry_id": "je-recur-1019",
+      "entry_number": "JE-2025-0072",
+      "entry_type": "standard",
+      "entry_date": "2025-03-18",
+      "posting_date": "2025-03-18",
+      "description": "Mobile Phone Service",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone (credit card)"
+        },
+        {
+          "account_id": "6140",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 85.0,
+          "multiplier": 1,
+          "description": "Mobile phone expense"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524125",
+      "updated_at": "2025-10-08T17:56:18.524126"
+    },
+    {
+      "journal_entry_id": "je-onetime-2016",
+      "entry_number": "JE-2025-0073",
+      "entry_type": "standard",
+      "entry_date": "2025-03-19",
+      "posting_date": "2025-03-19",
+      "description": "Grocery shopping - Trader Joe's",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 198.76,
+          "multiplier": -1,
+          "description": "Grocery shopping - Trader Joe's"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 198.76,
+          "multiplier": 1,
+          "description": "Grocery shopping - Trader Joe's"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524273",
+      "updated_at": "2025-10-08T17:56:18.524274"
+    },
+    {
+      "journal_entry_id": "je-onetime-2042",
+      "entry_number": "JE-2025-0074",
+      "entry_type": "standard",
+      "entry_date": "2025-03-21",
+      "posting_date": "2025-03-21",
+      "description": "Veterinarian - Dog checkup",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 185.0,
+          "multiplier": -1,
+          "description": "Veterinarian - Dog checkup"
+        },
+        {
+          "account_id": "6500",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 185.0,
+          "multiplier": 1,
+          "description": "Veterinarian - Dog checkup"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524360",
+      "updated_at": "2025-10-08T17:56:18.524360"
+    },
+    {
+      "journal_entry_id": "je-onetime-2017",
+      "entry_number": "JE-2025-0075",
+      "entry_type": "standard",
+      "entry_date": "2025-03-22",
+      "posting_date": "2025-03-22",
+      "description": "Dining - Steakhouse",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 142.0,
+          "multiplier": 1,
+          "description": "Dining - Steakhouse"
+        },
+        {
+          "account_id": "6310",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 142.0,
+          "multiplier": 1,
+          "description": "Dining - Steakhouse"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524276",
+      "updated_at": "2025-10-08T17:56:18.524277"
+    },
+    {
+      "journal_entry_id": "je-onetime-2043",
+      "entry_number": "JE-2025-0076",
+      "entry_type": "standard",
+      "entry_date": "2025-03-24",
+      "posting_date": "2025-03-24",
+      "description": "Car wash and detailing",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 45.0,
+          "multiplier": -1,
+          "description": "Car wash and detailing"
+        },
+        {
+          "account_id": "6220",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 45.0,
+          "multiplier": 1,
+          "description": "Car wash and detailing"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524364",
+      "updated_at": "2025-10-08T17:56:18.524365"
+    },
+    {
+      "journal_entry_id": "je-onetime-2044",
+      "entry_number": "JE-2025-0077",
+      "entry_type": "standard",
+      "entry_date": "2025-03-26",
+      "posting_date": "2025-03-26",
+      "description": "Sports equipment - Tennis racket",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "from",
+          "amount": 189.99,
+          "multiplier": 1,
+          "description": "Sports equipment - Tennis racket"
+        },
+        {
+          "account_id": "6300",
+          "account_type": "expense",
+          "flow_direction": "to",
+          "amount": 189.99,
+          "multiplier": 1,
+          "description": "Sports equipment - Tennis racket"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524367",
+      "updated_at": "2025-10-08T17:56:18.524368"
+    },
+    {
+      "journal_entry_id": "je-onetime-2018",
+      "entry_number": "JE-2025-0078",
+      "entry_type": "standard",
+      "entry_date": "2025-03-28",
+      "posting_date": "2025-03-28",
+      "description": "Pay off credit card balance",
+      "status": "posted",
+      "distributions": [
+        {
+          "account_id": "1000",
+          "account_type": "asset",
+          "flow_direction": "from",
+          "amount": 1400.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        },
+        {
+          "account_id": "2100",
+          "account_type": "liability",
+          "flow_direction": "to",
+          "amount": 1400.0,
+          "multiplier": -1,
+          "description": "Pay off credit card balance"
+        }
+      ],
+      "created_at": "2025-10-08T17:56:18.524280",
+      "updated_at": "2025-10-08T17:56:18.524280"
+    }
+  ],
+  "summary": {
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "total_transactions": 78,
+    "recurring_transactions": 33,
+    "onetime_transactions": 45
+  }
+}

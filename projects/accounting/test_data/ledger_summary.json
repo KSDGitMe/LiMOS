@@ -1,0 +1,29 @@
+{
+  "total_account_months": 64,
+  "months": [
+    "2025-01",
+    "2025-02",
+    "2025-03"
+  ],
+  "accounts_tracked": 24,
+  "by_month": {
+    "2025-01": {
+      "accounts": 23,
+      "total_transactions": 60,
+      "total_debits": 12835.88,
+      "total_credits": 12835.880000000001
+    },
+    "2025-02": {
+      "accounts": 21,
+      "total_transactions": 52,
+      "total_debits": 11398.47,
+      "total_credits": 11398.47
+    },
+    "2025-03": {
+      "accounts": 20,
+      "total_transactions": 50,
+      "total_debits": 8729.43,
+      "total_credits": 8729.43
+    }
+  }
+}

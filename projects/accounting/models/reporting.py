@@ -562,7 +562,7 @@ class TaxSummary(BaseModel):
     # Income
     total_income: float
     w2_income: float
-    1099_income: float
+    form_1099_income: float
     other_income: float
     income_by_category: List[CategoryBreakdown] = Field(default_factory=list)
 

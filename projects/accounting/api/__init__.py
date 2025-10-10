@@ -1,9 +1,9 @@
 """
-Accounting Module API
+LiMOS Accounting API - Journal Entry & Envelope System
 
-FastAPI REST API for all accounting agents.
+FastAPI REST API for accounting with virtual budget envelopes.
 """
 
-from .app import app
+from .main import app
 
 __all__ = ["app"]

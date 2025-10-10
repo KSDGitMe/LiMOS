@@ -1,0 +1,24 @@
+{
+  "entry_date": "2025-01-26",
+  "description": "Test grocery purchase",
+  "distributions": [
+    {
+      "account_id": "1000",
+      "account_type": "asset",
+      "flow_direction": "from",
+      "amount": 125.50,
+      "multiplier": -1,
+      "debit_credit": "Cr"
+    },
+    {
+      "account_id": "6300",
+      "account_type": "expense",
+      "flow_direction": "to",
+      "amount": 125.50,
+      "multiplier": 1,
+      "debit_credit": "Dr",
+      "budget_envelope_id": "1500"
+    }
+  ],
+  "status": "posted"
+}
