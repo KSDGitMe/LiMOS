@@ -222,7 +222,9 @@ async def void_journal_entry(entry_id: str, db: Session = Depends(get_db_session
             detail=f"Journal entry {entry_id} not found"
         )
 
-    JournalEntryRepository.update(db, entry_id, {"status": "void"})
+    # Update entry status to void
+    entry.status = JournalEntryStatus.VOID
+    JournalEntryRepository.update(db, entry_id, entry)
     return {"message": f"Journal entry {entry_id} voided successfully"}
 
 
@@ -246,14 +248,13 @@ async def post_journal_entry(entry_id: str, db: Session = Depends(get_db_session
             detail="Journal entry is already posted"
         )
 
-    # Update status
-    updated_entry = JournalEntryRepository.update(db, entry_id, {
-        "status": "posted",
-        "posted_at": datetime.utcnow()
-    })
+    # Update status to posted
+    entry.status = JournalEntryStatus.POSTED
+    entry.posted_at = datetime.utcnow()
+    updated_entry = JournalEntryRepository.update(db, entry_id, entry)
 
     # Update envelopes
-    envelope_service.post_journal_entry(entry)
+    envelope_service.post_journal_entry(updated_entry)
 
     return updated_entry
 
