@@ -31,6 +31,7 @@ import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import type { JournalEntry, JournalEntryStatus } from '../types';
 import TransactionDetailDialog from '../components/transactions/TransactionDetailDialog';
+import EditTransactionDialog from '../components/transactions/EditTransactionDialog';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 
 export default function Transactions() {
@@ -39,6 +40,7 @@ export default function Transactions() {
   const [status, setStatus] = useState<JournalEntryStatus | ''>('');
   const [limit, setLimit] = useState(50);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<JournalEntry | null>(null);
   const [voidConfirmOpen, setVoidConfirmOpen] = useState(false);
   const [transactionToVoid, setTransactionToVoid] = useState<string | null>(null);
@@ -73,6 +75,11 @@ export default function Transactions() {
   const handleViewDetails = (transaction: JournalEntry) => {
     setSelectedTransaction(transaction);
     setDetailOpen(true);
+  };
+
+  const handleEditClick = (transaction: JournalEntry) => {
+    setSelectedTransaction(transaction);
+    setEditOpen(true);
   };
 
   const getStatusColor = (status: JournalEntryStatus) => {
@@ -250,7 +257,12 @@ export default function Transactions() {
                         >
                           <ViewIcon fontSize="small" />
                         </IconButton>
-                        <IconButton size="small" title="Edit">
+                        <IconButton
+                          size="small"
+                          title="Edit transaction"
+                          onClick={() => handleEditClick(tx)}
+                          disabled={tx.status !== 'draft'}
+                        >
                           <EditIcon fontSize="small" />
                         </IconButton>
                         <IconButton
@@ -274,7 +286,20 @@ export default function Transactions() {
       {/* Transaction Detail Dialog */}
       <TransactionDetailDialog
         open={detailOpen}
-        onClose={() => setDetailOpen(false)}
+        onClose={() => {
+          setDetailOpen(false);
+          setSelectedTransaction(null);
+        }}
+        transaction={selectedTransaction}
+      />
+
+      {/* Edit Transaction Dialog */}
+      <EditTransactionDialog
+        open={editOpen}
+        onClose={() => {
+          setEditOpen(false);
+          setSelectedTransaction(null);
+        }}
         transaction={selectedTransaction}
       />
 
