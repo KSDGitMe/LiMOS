@@ -182,7 +182,7 @@ async def get_journal_entry(entry_id: str, db: Session = Depends(get_db_session)
 
 
 @app.put("/api/journal-entries/{entry_id}", response_model=JournalEntry, tags=["Journal Entries"])
-async def update_journal_entry(entry_id: str, entry_data: dict, db: Session = Depends(get_db_session)):
+async def update_journal_entry(entry_id: str, entry: JournalEntry, db: Session = Depends(get_db_session)):
     """Update a journal entry (only if not posted)."""
     existing = JournalEntryRepository.get_by_id(db, entry_id)
     if not existing:
@@ -197,7 +197,18 @@ async def update_journal_entry(entry_id: str, entry_data: dict, db: Session = De
             detail="Cannot update a posted journal entry"
         )
 
-    updated_entry = JournalEntryRepository.update(db, entry_id, entry_data)
+    # Validate balanced
+    if not entry.is_balanced():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Journal entry is not balanced. FROM: {sum(d.amount for d in entry.get_from_distributions())}, "
+                   f"TO: {sum(d.amount for d in entry.get_to_distributions())}"
+        )
+
+    # Ensure the entry_id matches
+    entry.journal_entry_id = entry_id
+
+    updated_entry = JournalEntryRepository.update(db, entry_id, entry)
     return updated_entry
 
 
