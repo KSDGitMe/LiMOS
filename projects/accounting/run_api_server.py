@@ -18,7 +18,7 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        "projects.accounting.api.main:app",  # Use in-memory API for development
+        "projects.accounting.api.main_db:app",  # Use database-backed API
         host="0.0.0.0",
         port=8000,
         reload=True,
