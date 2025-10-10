@@ -236,8 +236,8 @@ class JournalEntryRepository:
         return [JournalEntryRepository._to_pydantic(entry) for entry in db_entries]
 
     @staticmethod
-    def update(db: Session, entry_id: str, entry_data: Dict) -> JournalEntry:
-        """Update a journal entry."""
+    def update(db: Session, entry_id: str, entry: JournalEntry) -> JournalEntry:
+        """Update a journal entry and its distributions."""
         db_entry = db.query(JournalEntryDB).filter(
             JournalEntryDB.journal_entry_id == entry_id
         ).first()
@@ -245,12 +245,58 @@ class JournalEntryRepository:
         if not db_entry:
             raise ValueError(f"Journal entry {entry_id} not found")
 
-        # Update fields
-        for key, value in entry_data.items():
-            if hasattr(db_entry, key) and key != 'distributions':
-                setattr(db_entry, key, value)
-
+        # Update journal entry fields
+        db_entry.entry_number = entry.entry_number
+        db_entry.entry_type = entry.entry_type
+        db_entry.entry_date = entry.entry_date
+        db_entry.posting_date = entry.posting_date
+        db_entry.description = entry.description
+        db_entry.memo = entry.memo
+        db_entry.notes = entry.notes
+        db_entry.source_document = entry.source_document
+        db_entry.transaction_id = entry.transaction_id
+        db_entry.recurring_entry_id = entry.recurring_entry_id
+        db_entry.reversed_entry_id = entry.reversed_entry_id
+        db_entry.category = entry.category
+        db_entry.tags = entry.tags or []
+        db_entry.status = entry.status
+        db_entry.created_by = entry.created_by
+        db_entry.approved_by = entry.approved_by
+        db_entry.approved_at = entry.approved_at
+        db_entry.posted_by = entry.posted_by
+        db_entry.posted_at = entry.posted_at
+        db_entry.revision_number = entry.revision_number
+        db_entry.previous_version_id = entry.previous_version_id
         db_entry.updated_at = datetime.utcnow()
+
+        # Delete existing distributions
+        db.query(DistributionDB).filter(
+            DistributionDB.journal_entry_id == entry_id
+        ).delete()
+
+        # Add updated distributions
+        for dist in entry.distributions:
+            db_dist = DistributionDB(
+                distribution_id=dist.distribution_id,
+                journal_entry_id=entry_id,
+                account_id=dist.account_id,
+                account_type=dist.account_type,
+                flow_direction=dist.flow_direction,
+                amount=dist.amount,
+                multiplier=dist.multiplier,
+                debit_credit=dist.debit_credit,
+                description=dist.description,
+                memo=dist.memo,
+                reference_id=dist.reference_id,
+                cost_center=dist.cost_center,
+                department=dist.department,
+                project_id=dist.project_id,
+                budget_envelope_id=dist.budget_envelope_id,
+                payment_envelope_id=dist.payment_envelope_id,
+                status=dist.status,
+            )
+            db.add(db_dist)
+
         db.commit()
         db.refresh(db_entry)
         return JournalEntryRepository._to_pydantic(db_entry)
