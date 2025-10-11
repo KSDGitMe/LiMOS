@@ -10,16 +10,10 @@ This module provides comprehensive fleet management capabilities including:
 - Accounting system integration
 """
 
-from .agents.fleet_manager_agent import FleetManagerAgent, FleetDatabase
-from .models.fleet_models import Vehicle, FuelEvent, MaintenanceEvent, RepairEvent, InsuranceRecord
-
 __version__ = "1.0.0"
-__all__ = [
-    "FleetManagerAgent",
-    "FleetDatabase",
-    "Vehicle",
-    "FuelEvent",
-    "MaintenanceEvent",
-    "RepairEvent",
-    "InsuranceRecord"
-]
+
+# Agents are lazy-loaded to avoid importing heavy dependencies
+# Import them explicitly when needed:
+# from projects.fleet.agents.fleet_manager_agent import FleetManagerAgent
+
+__all__ = ["__version__"]
