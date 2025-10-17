@@ -1,6 +1,6 @@
 # Event Classification Layer - Implementation Progress
 
-## Status: Phase 2 Complete
+## Status: Phase 3 Complete
 
 Last Updated: 2025-10-16
 
@@ -76,11 +76,46 @@ Last Updated: 2025-10-16
    - `classify_from_keywords()` - Keyword-based fallback
    - `classify_from_claude_response()` - Claude AI response parser
 
+### Phase 3: Claude Integration ✅
+
+**Files Modified:**
+- `/projects/api/routers/orchestrator.py` - Integrated event classifier
+
+**Implemented Features:**
+1. **Updated ORCHESTRATOR_SYSTEM_PROMPT** to include:
+   - Event types by category (Money, Fleet, Health, Inventory, Calendar)
+   - Instructions for Claude to identify event_types and primary_event
+   - Updated examples showing multi-event classification
+
+2. **Integrated event classifier** into process_command() flow:
+   - Added import: `from projects.api.routers.event_classifier import classify_event`
+   - Classification runs after Claude parsing (Step 1.5)
+   - Classification result added to parsed data for module handlers
+   - Logging of classification results for debugging
+
+3. **Enhanced Claude response format:**
+   ```json
+   {
+     "module": "module_name",
+     "action": "action_type",
+     "intent": "description",
+     "event_types": ["primary_event", "secondary_event"],
+     "primary_event": "primary_event_type",
+     "extracted_data": {...},
+     "confidence": 0.0-1.0
+   }
+   ```
+
+4. **Classification fallback logic:**
+   - Classifier runs regardless of whether Claude provides event types
+   - Can use Claude's event types as hint, or classify from scratch
+   - Provides validation and backup classification
+
 ---
 
 ## Next Steps
 
-### Phase 3: Claude Integration
+### Phase 4: Module Handler Updates
 
 **To Update:**
 - `/projects/api/routers/orchestrator.py` - Add event classification step

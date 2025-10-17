@@ -13,6 +13,10 @@ import os
 from datetime import datetime
 import json
 
+# Import event classifier
+from projects.api.routers.event_classifier import classify_event
+from projects.api.models.events import EventClassificationResult
+
 router = APIRouter(prefix="/api/orchestrator", tags=["orchestrator"])
 
 # Initialize Claude client
@@ -48,7 +52,8 @@ ORCHESTRATOR_SYSTEM_PROMPT = """You are the LiMOS Orchestrator, an intelligent r
 Your job is to analyze user commands and determine:
 1. Which module should handle the request (accounting, fleet, health, inventory, calendar)
 2. What action to perform (create, read, update, delete)
-3. Extract structured data from the natural language command
+3. What specific event types are involved
+4. Extract structured data from the natural language command
 
 Available Modules:
 - **accounting**: Financial transactions, expenses, income, budgets
@@ -57,11 +62,20 @@ Available Modules:
 - **inventory**: Household items, expiration tracking, storage locations
 - **calendar**: Events, appointments, reminders, scheduling
 
+Event Types by Category:
+- **Money Events**: purchase, return, transfer, ap_payment, ap_invoice, deposit, ach, sales
+- **Fleet Events**: pump_event, repair_event, maint_event, travel_event
+- **Health Events**: meal_event, exercise_event, hike_event
+- **Inventory Events**: stock_event, use_food_event, food_expiry_check
+- **Calendar Events**: appointment_event, reminder_event, task_event
+
 Respond with a JSON object containing:
 {
   "module": "module_name",
   "action": "action_type",
   "intent": "detailed description of what user wants",
+  "event_types": ["primary_event_type", "secondary_event_type"],
+  "primary_event": "primary_event_type",
   "extracted_data": {
     // Structured data extracted from command
   },
@@ -76,6 +90,8 @@ Response: {
   "module": "accounting",
   "action": "create",
   "intent": "Record grocery purchase expense",
+  "event_types": ["purchase"],
+  "primary_event": "purchase",
   "extracted_data": {
     "amount": 50.00,
     "description": "Groceries at Safeway",
@@ -90,12 +106,15 @@ User: "Filled up gas, 12 gallons, $45, odometer 45000"
 Response: {
   "module": "fleet",
   "action": "create",
-  "intent": "Log vehicle refueling event",
+  "intent": "Log vehicle refueling event and expense",
+  "event_types": ["pump_event", "purchase"],
+  "primary_event": "pump_event",
   "extracted_data": {
     "gallons": 12.0,
     "cost": 45.00,
     "odometer": 45000,
-    "event_type": "refuel"
+    "price": 3.75,
+    "fuel_type": "regular"
   },
   "confidence": 0.98
 }
@@ -105,6 +124,8 @@ Response: {
   "module": "accounting",
   "action": "read",
   "intent": "Query spending by category for current month",
+  "event_types": [],
+  "primary_event": null,
   "extracted_data": {
     "category": "food",
     "time_period": "current_month",
@@ -419,6 +440,29 @@ async def process_command(raw_request: Request):
                 action="confirm",
                 data={"original_command": request.command, "parsed": parsed}
             )
+
+        # Step 1.5: Classify event types
+        # Use event classifier if Claude didn't provide event types or as validation
+        print(f"🔍 Running event classification for: '{request.command}'")
+        classification: EventClassificationResult = classify_event(
+            command=request.command,
+            parsed_data=parsed,
+            context=request.context
+        )
+
+        # Log classification result
+        print(f"✅ Event classification complete:")
+        print(f"   Primary event: {classification.primary_event.event_type} (confidence: {classification.primary_event.confidence})")
+        if classification.secondary_events:
+            for sec_event in classification.secondary_events:
+                print(f"   Secondary event: {sec_event.event_type}")
+
+        # Add classification data to parsed result
+        parsed["event_classification"] = {
+            "primary_event": classification.primary_event.dict(),
+            "secondary_events": [e.dict() for e in classification.secondary_events] if classification.secondary_events else None,
+            "classification_confidence": classification.confidence
+        }
 
         # Step 2: Route to appropriate module
         if module not in MODULE_HANDLERS:
