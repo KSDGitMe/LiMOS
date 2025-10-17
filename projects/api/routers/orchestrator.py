@@ -204,9 +204,10 @@ def parse_command_with_claude(command: str, context: Optional[Dict[str, Any]] = 
         )
 
 
-def route_to_accounting(action: str, extracted_data: Dict[str, Any]) -> Dict[str, Any]:
+def route_to_accounting(action: str, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Route to accounting module and create actual journal entries.
+    Now event-aware - handles different Money Event types.
     """
     from projects.accounting.models.journal_entries import (
         JournalEntry,
@@ -217,15 +218,23 @@ def route_to_accounting(action: str, extracted_data: Dict[str, Any]) -> Dict[str
     from projects.accounting.services import account_mapper
     import uuid
 
+    # Extract data
+    extracted_data = parsed_data.get("extracted_data", {})
+    event_classification = parsed_data.get("event_classification", {})
+    primary_event = event_classification.get("primary_event", {})
+    event_type = primary_event.get("event_type", "purchase")  # Default to purchase
+
     if action == "create":
-        # Create a simple expense journal entry
-        # This will need enhancement to handle different transaction types
+        # Event-aware transaction creation
+        # Handle different Money Event types (purchase, return, transfer, deposit, etc.)
+
+        print(f"💰 Creating accounting entry for event type: {event_type}")
 
         amount = extracted_data.get("amount", 0.0)
-        description = extracted_data.get("description", "Expense")
+        description = extracted_data.get("description", "Transaction")
         category = extracted_data.get("category", "general")
         merchant = extracted_data.get("merchant", "")
-        confidence = extracted_data.get("confidence", 0.0)
+        confidence = parsed_data.get("confidence", 0.0)
 
         # Use description as-is (Claude already includes merchant in description)
         full_description = description
@@ -334,22 +343,73 @@ def route_to_accounting(action: str, extracted_data: Dict[str, Any]) -> Dict[str
         return {"message": f"Action '{action}' not yet implemented for accounting"}
 
 
-def route_to_fleet(action: str, extracted_data: Dict[str, Any]) -> Dict[str, Any]:
+def route_to_fleet(action: str, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Route to fleet module.
-    This will eventually call the fleet API endpoints.
+    Now event-aware - handles different Fleet Event types (pump_event, repair_event, maint_event, travel_event).
     """
+    # Extract data
+    extracted_data = parsed_data.get("extracted_data", {})
+    event_classification = parsed_data.get("event_classification", {})
+    primary_event = event_classification.get("primary_event", {})
+    event_type = primary_event.get("event_type", "pump_event")  # Default to pump_event
+
     if action == "create":
-        event_type = extracted_data.get("event_type", "refuel")
-        # In future: call POST /api/fleet/events
-        return {
-            "event_id": "mock-fleet-456",
-            "event_type": event_type,
-            "gallons": extracted_data.get("gallons"),
-            "cost": extracted_data.get("cost"),
-            "odometer": extracted_data.get("odometer"),
-            "created_at": datetime.now().isoformat()
-        }
+        print(f"🚗 Creating fleet entry for event type: {event_type}")
+
+        # Event-specific handling
+        if event_type == "pump_event":
+            # PumpEvent has conditional parsing built in
+            return {
+                "event_id": f"fleet-pump-{datetime.now().timestamp()}",
+                "event_type": event_type,
+                "gallons": extracted_data.get("gallons") or extracted_data.get("quantity"),
+                "cost": extracted_data.get("cost"),
+                "price": extracted_data.get("price"),
+                "fuel_type": extracted_data.get("fuel_type", "regular"),
+                "odometer": extracted_data.get("odometer"),
+                "location": extracted_data.get("location"),
+                "created_at": datetime.now().isoformat()
+            }
+        elif event_type == "travel_event":
+            return {
+                "event_id": f"fleet-travel-{datetime.now().timestamp()}",
+                "event_type": event_type,
+                "start_location": extracted_data.get("start_location"),
+                "end_location": extracted_data.get("end_location"),
+                "distance": extracted_data.get("distance"),
+                "odometer_start": extracted_data.get("odometer_start"),
+                "odometer_end": extracted_data.get("odometer_end"),
+                "created_at": datetime.now().isoformat()
+            }
+        elif event_type == "maint_event":
+            return {
+                "event_id": f"fleet-maint-{datetime.now().timestamp()}",
+                "event_type": event_type,
+                "service_type": extracted_data.get("service_type", "maintenance"),
+                "cost": extracted_data.get("cost"),
+                "odometer": extracted_data.get("odometer"),
+                "description": extracted_data.get("description"),
+                "created_at": datetime.now().isoformat()
+            }
+        elif event_type == "repair_event":
+            return {
+                "event_id": f"fleet-repair-{datetime.now().timestamp()}",
+                "event_type": event_type,
+                "repair_type": extracted_data.get("repair_type", "repair"),
+                "cost": extracted_data.get("cost"),
+                "odometer": extracted_data.get("odometer"),
+                "description": extracted_data.get("description"),
+                "created_at": datetime.now().isoformat()
+            }
+        else:
+            # Generic fleet event
+            return {
+                "event_id": f"fleet-generic-{datetime.now().timestamp()}",
+                "event_type": event_type,
+                "data": extracted_data,
+                "created_at": datetime.now().isoformat()
+            }
     else:
         return {"message": f"Action '{action}' not yet implemented for fleet"}
 
@@ -464,26 +524,76 @@ async def process_command(raw_request: Request):
             "classification_confidence": classification.confidence
         }
 
-        # Step 2: Route to appropriate module
-        if module not in MODULE_HANDLERS:
+        # Step 2: Route to appropriate module(s) - handle multi-event commands
+        results = []
+
+        # Handle primary event
+        primary_module = classification.primary_event.module
+        primary_action = classification.primary_event.action
+
+        if primary_module not in MODULE_HANDLERS:
             raise HTTPException(
                 status_code=400,
-                detail=f"Unknown module: {module}"
+                detail=f"Unknown module: {primary_module}"
             )
 
-        handler = MODULE_HANDLERS[module]
-        result_data = handler(action, extracted_data)
+        print(f"🎯 Routing to primary module: {primary_module} (action: {primary_action})")
+        primary_handler = MODULE_HANDLERS[primary_module]
+        primary_result = primary_handler(primary_action, parsed)  # Pass full parsed data
+        results.append({
+            "module": primary_module,
+            "event_type": classification.primary_event.event_type,
+            "result": primary_result
+        })
+
+        # Handle secondary events if present
+        if classification.secondary_events:
+            print(f"🔗 Processing {len(classification.secondary_events)} secondary event(s)")
+            for secondary_event in classification.secondary_events:
+                secondary_module = secondary_event.module
+                secondary_action = secondary_event.action
+
+                if secondary_module in MODULE_HANDLERS:
+                    print(f"   → {secondary_module}.{secondary_action} ({secondary_event.event_type})")
+                    secondary_handler = MODULE_HANDLERS[secondary_module]
+
+                    # Create data for secondary event from its extracted_data
+                    secondary_parsed = {
+                        **parsed,  # Include original parsed data
+                        "extracted_data": secondary_event.extracted_data,
+                        "event_classification": {
+                            "primary_event": secondary_event.dict(),
+                            "is_secondary": True
+                        }
+                    }
+
+                    secondary_result = secondary_handler(secondary_action, secondary_parsed)
+                    results.append({
+                        "module": secondary_module,
+                        "event_type": secondary_event.event_type,
+                        "result": secondary_result
+                    })
+
+        # Combine results
+        if len(results) == 1:
+            result_data = primary_result
+        else:
+            result_data = {
+                "primary": primary_result,
+                "secondary": [r["result"] for r in results[1:]],
+                "events_processed": len(results)
+            }
 
         # Step 3: Generate human-readable response
-        message = generate_response_message(module, action, intent, result_data)
+        message = generate_response_message(primary_module, primary_action, intent, result_data)
 
         return OrchestratorResponse(
             success=True,
             message=message,
-            module=module,
-            action=action,
+            module=primary_module,
+            action=primary_action,
             data=result_data,
-            suggestions=generate_suggestions(module, action)
+            suggestions=generate_suggestions(primary_module, primary_action)
         )
 
     except HTTPException:
