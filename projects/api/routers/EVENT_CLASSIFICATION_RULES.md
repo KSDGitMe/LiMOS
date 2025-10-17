@@ -1,6 +1,6 @@
 # Event Classification Rules
 
-This document defines the rules for classifying user commands into event types. These rules are used by the Event Classification Layer to determine which events to trigger and which modules to route to.
+This document defines the rules for classifying user commands into event types. These rules are used by the Event Classification Layer to determine which events to trigger and which modules to route to.  IT also looks at the Data that was Received as Input and applies **Parsing Rules**** to determine how to handle Missing Data.  Once Parsing Conditionals have been ap0plied, then Validate that all **Required Data** are not null (missing data)
 
 ---
 
@@ -9,7 +9,7 @@ This document defines the rules for classifying user commands into event types. 
 Each rule follows this pattern:
 
 ```
-IF [conditions] THEN classify as [EventType]
+IF [**Rule**] THEN classify as [EventType]
   → Route to: [module]
   → Confidence: [high|medium|low]
   → May trigger: [secondary events]
@@ -21,10 +21,10 @@ IF [conditions] THEN classify as [EventType]
 
 ### Purchase Event
 
-**Rule:** IF command contains financial transaction AND acquisition of goods/services
+**Rule:** IF( command contains payment_method AND acquisition of goods/services) THEN EventType
 **Keywords:** `bought`, `purchased`, `spent`, `paid for`, `cost`, `$`, `got`, `picked up`
-**Required Data:** amount, description/merchant
-**Optional Data:** category, payment_method, date
+**Required Data:** amount, description, Expense Distribution account
+**Optional Data:** category, payment_method, date, vendor
 
 **Examples:**
 - "I bought $50 of groceries at Safeway"
@@ -47,7 +47,7 @@ IF [conditions] THEN classify as [EventType]
 
 **Rule:** IF command indicates returning goods for refund
 **Keywords:** `returned`, `return`, `refund`, `took back`, `sent back`
-**Required Data:** amount, description/merchant
+**Required Data:** amount, description, merchant
 **Optional Data:** original_transaction_id, reason
 
 **Examples:**
@@ -61,7 +61,7 @@ IF [conditions] THEN classify as [EventType]
 - Low (<0.70): Unclear if it's an actual return or just considering one
 
 **Route to:** accounting module
-**Action:** create
+**Actions:** create
 **Transaction Type:** expense reversal (negative expense)
 
 ---
@@ -207,22 +207,29 @@ IF [conditions] THEN classify as [EventType]
 
 ## Fleet Events
 
-### PumpEvent (Refuel)
+### PumpEvent
 
-**Rule:** IF command indicates vehicle refueling
-**Keywords:** `gas`, `fuel`, `filled up`, `refuel`, `pump`, `gallons`, `diesel`, `premium`
-**Required Data:** cost OR gallons
-**Optional Data:** odometer, fuel_type, location, vehicle, gallons_if_missing_cost
-
+**Rule:** IF command indicates vehicle refueling, Then PumpEvent
+**Keywords:** 
+  [`gas`, `fuel`, `filled up`, `refuel`, `pump`, `gallons`, `diesel`, `premium`, `additive`, `DEF`]
+**Identifiable Data**: 
+  [price,quantity, unit-of-measure, odometer, cost, date-time, fuel-gauge, payment-method, from-account, to-account, fuel-type, location, vehicle]
+**Conditionals:** 
+  - IF( Have('cost') and Have('price') and Missing('gallons') ) -> calculate 'gallons'
+  - IF( Have('gallons') and Have('price') and Missing('cost') ) -> calculate 'cost'
+**Required Data:**
+  [price, quantity, unit-of-measure, cost, date-time, from-account, to-account, fuel-type, location]
+**Error Handling:**
+  
 **Examples:**
-- "Filled up gas, 12 gallons, $45, odometer 45000"
-- "Got gas, $52, regular unleaded"
-- "Refueled at Shell, 15 gallons, $48.75"
+  - "Filled up gas, 12 gallons, $45, odometer 45000"
+  - "Got gas, $52, regular unleaded"
+  - "Refueled at Shell, 15 gallons, $48.75"
 
 **Confidence:**
-- High (0.90+): Fuel keyword + gallons + cost + odometer
-- Medium (0.70-0.89): Fuel keyword + cost, but missing odometer or gallons
-- Low (<0.70): Only mentions gas, unclear if refueling
+  - High (0.90+): Fuel keyword + gallons + cost + odometer
+  - Medium (0.70-0.89): Fuel keyword + cost, but missing odometer or gallons
+  - Low (<0.70): Only mentions gas, unclear if refueling
 
 **Route to:** fleet module (primary) + accounting module (secondary)
 **Action:** create
@@ -280,7 +287,7 @@ IF [conditions] THEN classify as [EventType]
 ### TravelEvent
 
 **Rule:** IF command indicates a trip/drive for mileage tracking
-**Keywords:** `drove`, `trip to`, `drive`, `traveled`, `miles`, `mileage`, `business trip`
+**Keywords:** `drove`, `trip to`, `drive`, `traveled`, `miles`, `mileage`, `business trip`, "Started driving", "stopped for the day"
 **Required Data:** distance OR (start_location AND end_location)
 **Optional Data:** purpose, vehicle, odometer_start, odometer_end, duration
 
@@ -374,14 +381,14 @@ IF [conditions] THEN classify as [EventType]
 
 ---
 
-## Inventory Events
+## Food Inventory Events
 
 ### StockEvent
 
 **Rule:** IF command indicates adding items to inventory with expiration tracking
 **Keywords:** `bought` + `expires`, `stocked`, `got` + `expiry`, `purchased` + `best by`
 **Required Data:** item_name, quantity
-**Optional Data:** expiration_date, location, cost, brand
+**Optional Data:** container, expiration_date, location, cost, brand
 
 **Examples:**
 - "Bought 2 gallons of milk, expires 10/20"
@@ -399,7 +406,7 @@ IF [conditions] THEN classify as [EventType]
 
 ---
 
-### UseEvent
+### UseFoodEvent
 
 **Rule:** IF command indicates consuming or using inventory items
 **Keywords:** `used`, `consumed`, `ate`, `finished`, `ran out of`, `opened`
@@ -423,7 +430,7 @@ IF [conditions] THEN classify as [EventType]
 
 ---
 
-### ExpiryCheck
+### FoodExpiryCheck
 
 **Rule:** IF command is a query about expiring items
 **Keywords:** `expiring`, `expired`, `about to expire`, `check expiration`, `what's expiring`, `going bad`
@@ -524,7 +531,7 @@ IF [conditions] THEN classify as [EventType]
 ## Multi-Event Detection Rules
 
 ### Rule 1: Purchase + Inventory
-**Condition:** Purchase event AND item has expiration date
+**Condition:** Purchase event AND FoodItem
 **Action:** Trigger both Purchase (money) and StockEvent (inventory)
 **Example:** "Bought 2 gallons of milk for $7.50, expires 10/20"
 
@@ -574,7 +581,7 @@ IF [conditions] THEN classify as [EventType]
 
 When multiple event types match, use this priority order:
 
-1. **Explicit Keywords Win**: If user explicitly says "refuel" vs just "spent $45", classify as PumpEvent
+1. **Explicit Keywords Win**: If user explicitly says A Fuel Event Keyword or "refuel" vs just "spent $45", classify as PumpEvent
 2. **More Specific Wins**: RepairEvent > MaintEvent > Purchase
 3. **Context Helps**: "at Safeway" → likely Purchase, "at gym" → likely ExerciseEvent
 4. **Multi-Event When Both Clear**: If both events have high confidence, trigger both
