@@ -138,9 +138,55 @@ Be precise in data extraction and always err on the side of asking for clarifica
 """
 
 
+def load_pump_event_spec() -> str:
+    """Load the PumpEvent specification from markdown file."""
+    from pathlib import Path
+    # Path from orchestrator.py -> routers/ -> api/ -> projects/ -> LiMOS/ -> md/
+    spec_path = Path(__file__).parent.parent.parent.parent / "md" / "EV-FLT-pump_example.md"
+    if spec_path.exists():
+        return spec_path.read_text()
+    return ""
+
+
+def get_enhanced_system_prompt(command: str) -> str:
+    """
+    Get system prompt with event-specific specifications loaded only when needed.
+    This keeps context minimal for non-fuel commands.
+    """
+    # Fuel/pump event keywords - only load pump spec if these are present
+    fuel_keywords = ["gas", "fuel", "filled", "refuel", "pump", "diesel", "gallons",
+                     "tank", "station", "unleaded", "premium", "def", "topped off"]
+
+    # Check if this is likely a fuel event
+    is_fuel_event = any(keyword in command.lower() for keyword in fuel_keywords)
+
+    if is_fuel_event:
+        # Load pump event specification for fuel commands
+        pump_spec = load_pump_event_spec()
+        if pump_spec:
+            return f"""{ORCHESTRATOR_SYSTEM_PROMPT}
+
+# FUEL EVENT SPECIFICATION (APPLY THESE RULES FOR PUMP EVENTS)
+
+When processing fuel/refueling events, follow these detailed rules:
+
+{pump_spec}
+
+CRITICAL DEFAULTS:
+- vehicle: default to 'Rocinante' (license plate 'Xpanse') if not specified
+- Apply all validation rules before returning data
+- Follow confidence scoring guidelines exactly as specified
+- Use default values and inference rules as documented above
+"""
+
+    # For non-fuel commands, use base prompt only (saves ~2000 tokens)
+    return ORCHESTRATOR_SYSTEM_PROMPT
+
+
 def parse_command_with_claude(command: str, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Use Claude to parse the natural language command and determine routing.
+    Intelligently loads event-specific specifications only when needed.
 
     Args:
         command: Natural language command from user
@@ -160,11 +206,14 @@ def parse_command_with_claude(command: str, context: Optional[Dict[str, Any]] = 
     if context:
         user_message += f"\n\nContext:\n{context}"
 
+    # Get appropriate system prompt (with or without pump spec)
+    system_prompt = get_enhanced_system_prompt(command)
+
     try:
         message = client.messages.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=1024,
-            system=ORCHESTRATOR_SYSTEM_PROMPT,
+            system=system_prompt,  # Uses enhanced prompt with conditional spec loading
             messages=[
                 {"role": "user", "content": user_message}
             ]
@@ -347,7 +396,23 @@ def route_to_fleet(action: str, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Route to fleet module.
     Now event-aware - handles different Fleet Event types (pump_event, repair_event, maint_event, travel_event).
+    Creates actual database records via Fleet repositories.
     """
+    from projects.fleet.database import (
+        get_db_connection,
+        VehicleRepository,
+        FuelEventRepository,
+        MaintenanceEventRepository,
+        RepairEventRepository
+    )
+    from projects.fleet.models import (
+        FuelEventCreate,
+        MaintenanceEventCreate,
+        RepairEventCreate,
+        FuelType
+    )
+    from decimal import Decimal
+
     # Extract data
     extracted_data = parsed_data.get("extracted_data", {})
     event_classification = parsed_data.get("event_classification", {})
@@ -357,59 +422,147 @@ def route_to_fleet(action: str, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
     if action == "create":
         print(f"🚗 Creating fleet entry for event type: {event_type}")
 
-        # Event-specific handling
-        if event_type == "pump_event":
-            # PumpEvent has conditional parsing built in
-            return {
-                "event_id": f"fleet-pump-{datetime.now().timestamp()}",
-                "event_type": event_type,
-                "gallons": extracted_data.get("gallons") or extracted_data.get("quantity"),
-                "cost": extracted_data.get("cost"),
-                "price": extracted_data.get("price"),
-                "fuel_type": extracted_data.get("fuel_type", "regular"),
-                "odometer": extracted_data.get("odometer"),
-                "location": extracted_data.get("location"),
-                "created_at": datetime.now().isoformat()
-            }
-        elif event_type == "travel_event":
-            return {
-                "event_id": f"fleet-travel-{datetime.now().timestamp()}",
-                "event_type": event_type,
-                "start_location": extracted_data.get("start_location"),
-                "end_location": extracted_data.get("end_location"),
-                "distance": extracted_data.get("distance"),
-                "odometer_start": extracted_data.get("odometer_start"),
-                "odometer_end": extracted_data.get("odometer_end"),
-                "created_at": datetime.now().isoformat()
-            }
-        elif event_type == "maint_event":
-            return {
-                "event_id": f"fleet-maint-{datetime.now().timestamp()}",
-                "event_type": event_type,
-                "service_type": extracted_data.get("service_type", "maintenance"),
-                "cost": extracted_data.get("cost"),
-                "odometer": extracted_data.get("odometer"),
-                "description": extracted_data.get("description"),
-                "created_at": datetime.now().isoformat()
-            }
-        elif event_type == "repair_event":
-            return {
-                "event_id": f"fleet-repair-{datetime.now().timestamp()}",
-                "event_type": event_type,
-                "repair_type": extracted_data.get("repair_type", "repair"),
-                "cost": extracted_data.get("cost"),
-                "odometer": extracted_data.get("odometer"),
-                "description": extracted_data.get("description"),
-                "created_at": datetime.now().isoformat()
-            }
-        else:
-            # Generic fleet event
-            return {
-                "event_id": f"fleet-generic-{datetime.now().timestamp()}",
-                "event_type": event_type,
-                "data": extracted_data,
-                "created_at": datetime.now().isoformat()
-            }
+        # Get database connection
+        conn = get_db_connection()
+
+        try:
+            # Get or determine vehicle_id
+            vehicle_id = extracted_data.get("vehicle_id")
+
+            if not vehicle_id:
+                # Get the default/first vehicle if none specified
+                vehicles = VehicleRepository.get_all(conn, limit=1)
+                if not vehicles:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="No vehicles found. Please add a vehicle first or specify vehicle_id."
+                    )
+                vehicle_id = vehicles[0].vehicle_id
+                print(f"📌 Using default vehicle: {vehicle_id}")
+
+            # Event-specific handling with actual database operations
+            if event_type == "pump_event":
+                # Create actual fuel event
+                gallons = extracted_data.get("gallons") or extracted_data.get("quantity")
+                cost = extracted_data.get("cost") or extracted_data.get("total_cost")
+                price = extracted_data.get("price") or extracted_data.get("price_per_gallon")
+                odometer = extracted_data.get("odometer") or extracted_data.get("odometer_reading")
+
+                # Calculate price_per_gallon if not provided
+                if not price and gallons and cost:
+                    price = Decimal(str(cost)) / Decimal(str(gallons))
+
+                # Map fuel_type string to enum
+                fuel_type_str = extracted_data.get("fuel_type", "regular")
+                fuel_type_map = {
+                    "regular": FuelType.GASOLINE,
+                    "gasoline": FuelType.GASOLINE,
+                    "diesel": FuelType.DIESEL,
+                    "e85": FuelType.E85,
+                    "biodiesel": FuelType.BIODIESEL
+                }
+                fuel_type = fuel_type_map.get(fuel_type_str.lower(), FuelType.GASOLINE)
+
+                fuel_event = FuelEventCreate(
+                    vehicle_id=vehicle_id,
+                    gallons=Decimal(str(gallons)) if gallons else Decimal("0"),
+                    odometer_reading=int(odometer) if odometer else 0,
+                    fuel_type=fuel_type,
+                    total_cost=Decimal(str(cost)) if cost else None,
+                    price_per_gallon=Decimal(str(price)) if price else None,
+                    station_name=extracted_data.get("location") or extracted_data.get("station_name"),
+                    date_time=None  # Will default to now
+                )
+
+                created_event = FuelEventRepository.create(conn, fuel_event)
+
+                return {
+                    "event_id": created_event.fuel_id,
+                    "event_type": event_type,
+                    "vehicle_id": vehicle_id,
+                    "gallons": float(created_event.gallons),
+                    "cost": float(created_event.total_cost) if created_event.total_cost else None,
+                    "price": float(created_event.price_per_gallon) if created_event.price_per_gallon else None,
+                    "fuel_type": created_event.fuel_type.value,
+                    "odometer": created_event.odometer_reading,
+                    "location": created_event.station_name,
+                    "created_at": created_event.created_at.isoformat()
+                }
+
+            elif event_type == "maint_event":
+                # Create actual maintenance event
+                maint_event = MaintenanceEventCreate(
+                    vehicle_id=vehicle_id,
+                    maintenance_type=extracted_data.get("service_type", "General Maintenance"),
+                    description=extracted_data.get("description", "Maintenance service"),
+                    cost=Decimal(str(extracted_data.get("cost", 0))),
+                    vendor=extracted_data.get("vendor", "Unknown"),
+                    odometer_reading=int(extracted_data.get("odometer")) if extracted_data.get("odometer") else None,
+                    date=None  # Will default to now
+                )
+
+                created_event = MaintenanceEventRepository.create(conn, maint_event)
+
+                return {
+                    "event_id": created_event.maintenance_id,
+                    "event_type": event_type,
+                    "vehicle_id": vehicle_id,
+                    "service_type": created_event.maintenance_type,
+                    "cost": float(created_event.cost),
+                    "odometer": created_event.odometer_reading,
+                    "description": created_event.description,
+                    "vendor": created_event.vendor,
+                    "created_at": created_event.created_at.isoformat()
+                }
+
+            elif event_type == "repair_event":
+                # Create actual repair event
+                repair_event = RepairEventCreate(
+                    vehicle_id=vehicle_id,
+                    repair_type=extracted_data.get("repair_type", "General Repair"),
+                    description=extracted_data.get("description", "Repair service"),
+                    cost=Decimal(str(extracted_data.get("cost", 0))),
+                    vendor=extracted_data.get("vendor", "Unknown"),
+                    severity=extracted_data.get("severity", "Medium"),
+                    odometer_reading=int(extracted_data.get("odometer")) if extracted_data.get("odometer") else None,
+                    date=None  # Will default to now
+                )
+
+                created_event = RepairEventRepository.create(conn, repair_event)
+
+                return {
+                    "event_id": created_event.repair_id,
+                    "event_type": event_type,
+                    "vehicle_id": vehicle_id,
+                    "repair_type": created_event.repair_type,
+                    "cost": float(created_event.cost),
+                    "odometer": created_event.odometer_reading,
+                    "description": created_event.description,
+                    "severity": created_event.severity.value,
+                    "created_at": created_event.created_at.isoformat()
+                }
+
+            elif event_type == "travel_event":
+                # Travel events aren't in the current schema - return informational message
+                return {
+                    "event_id": f"fleet-travel-{datetime.now().timestamp()}",
+                    "event_type": event_type,
+                    "message": "Travel events not yet implemented in database schema",
+                    "data": extracted_data,
+                    "created_at": datetime.now().isoformat()
+                }
+            else:
+                # Generic fleet event
+                return {
+                    "event_id": f"fleet-generic-{datetime.now().timestamp()}",
+                    "event_type": event_type,
+                    "message": "Generic fleet events not yet implemented",
+                    "data": extracted_data,
+                    "created_at": datetime.now().isoformat()
+                }
+        finally:
+            conn.close()
+
     else:
         return {"message": f"Action '{action}' not yet implemented for fleet"}
 
